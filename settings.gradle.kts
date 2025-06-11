@@ -88,5 +88,10 @@ include("kudos-ability:kudos-ability-web:kudos-ability-web-ktor")
 include("kudos-ability:kudos-ability-web:kudos-ability-web-springmvc")
 
 
+// ms
+//// ms-sys
+include("kudos-ms:kudos-ms-sys:kudos-ms-sys-service")
+
+
 
 
