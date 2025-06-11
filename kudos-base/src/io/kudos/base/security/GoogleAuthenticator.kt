@@ -17,17 +17,17 @@ import kotlin.experimental.and
 class GoogleAuthenticator {
     var windowSize = 3 // default 3 - max 17 (from google docs)最多可偏移的时间
 
-    /**
-     * set the windows size. This is an integer value representing the number of 30 second windows
-     * we allow
-     * The bigger the window, the more tolerant of clock skew we are.
-     * @param s window size - must be >=1 and <=17. Other values are ignored
-     */
-    fun setWindowSize(s: Int) {
-        if (s in 1..17) {
-            windowSize = s
+        /**
+         * set the windows size. This is an integer value representing the number of 30 second windows
+         * we allow
+         * The bigger the window, the more tolerant of clock skew we are.
+         * @param s window size - must be >=1 and <=17. Other values are ignored
+         */
+        set(s) {
+            if (s in 1..17) {
+                field = s
+            }
         }
-    }
 
     /**
      * Check the code entered by the user to see if it is valid

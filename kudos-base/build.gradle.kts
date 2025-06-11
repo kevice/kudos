@@ -27,6 +27,7 @@ dependencies {
     api("org.hibernate.validator:hibernate-validator:9.0.0.Final")
     api("jakarta.el:jakarta.el-api:6.0.1")
     api("org.glassfish:jakarta.el:5.0.0-M1")
+//    api("javax.money:money-api:1.1")
 
     // json
     api("io.ktor:ktor-serialization-kotlinx-json-jvm:${libs.versions.ktor.get()}")

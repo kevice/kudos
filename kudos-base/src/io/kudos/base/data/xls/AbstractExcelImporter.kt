@@ -141,6 +141,7 @@ abstract class AbstractExcelImporter<T : Any> : IExcelImporter<T> {
         propertyNames = getPropertyNames()
         try {
             val rows = sheet.rows
+            @Suppress("UNCHECKED_CAST")
             val rowObjectClass = GenericKit.getSuperClassGenricClass(this::class) as KClass<T>
             lateinit var rowObject: T
             for (row in 1 until rows) { // 扣掉列头

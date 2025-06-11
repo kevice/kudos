@@ -77,11 +77,11 @@ internal class FilenameKitTest {
             assertEquals("\\bar", FilenameKit.normalizeNoEndSeparator("/foo/../bar/"))
         } else {
             // “/foo//” → “/foo”
-            assertEquals("\\foo", FilenameKit.normalizeNoEndSeparator("/foo//"))
+            assertEquals("/foo", FilenameKit.normalizeNoEndSeparator("/foo//"))
             // “/foo/./” → “/foo”
-            assertEquals("\\foo", FilenameKit.normalizeNoEndSeparator("/foo/./"))
+            assertEquals("/foo", FilenameKit.normalizeNoEndSeparator("/foo/./"))
             // “/foo/../bar/” → “/bar”
-            assertEquals("\\bar", FilenameKit.normalizeNoEndSeparator("/foo/../bar/"))
+            assertEquals("/bar", FilenameKit.normalizeNoEndSeparator("/foo/../bar/"))
         }
         // “foo/bar/..” → “foo”
         assertEquals("foo", FilenameKit.normalizeNoEndSeparator("foo/bar/.."))

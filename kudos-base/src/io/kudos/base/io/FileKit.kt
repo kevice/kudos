@@ -263,6 +263,7 @@ object FileKit {
      * @author K
      * @since 1.0.0
      */
+    @Suppress("UNCHECKED_CAST")
     fun listFiles(directory: File, extensions: Array<String>?, recursive: Boolean): List<File> =
         FileUtils.listFiles(directory, extensions, recursive) as List<File>
 

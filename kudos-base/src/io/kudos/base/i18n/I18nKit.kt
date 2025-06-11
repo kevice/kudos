@@ -281,7 +281,7 @@ object I18nKit {
 
     /**
      * 将i18nMap里的字典,组织成字典专用的i18nMapDict
-     * @param locale
+     * @param locale locale string
      */
     private fun initDictByLocale(locale: String) {
         synchronized(i18nMapDict) {
@@ -309,7 +309,7 @@ object I18nKit {
                             i18nMapDict[locale]!![module]!![dictType]!![dictType] = module + "_" + oneType
                             log.error("i18n:字典国际化模块:{0},类型:{1},缺少Code！", module, oneType)
                         }
-                    } catch (ex: Exception) {
+                    } catch (_: Exception) {
                         log.error("i18n:字典国际化模块:{0},类型:{1},缺少Code！", module, oneType)
                     }
                 }

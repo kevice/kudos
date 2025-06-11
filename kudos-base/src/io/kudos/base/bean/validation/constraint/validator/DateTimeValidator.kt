@@ -27,8 +27,8 @@ class DateTimeValidator : ConstraintValidator<DateTime, CharSequence?> {
         var valid = (format.length == value.length)
         if (valid) {
             try {
-                SimpleDateFormat(format).parse(value as String?)
-            } catch (e: ParseException) {
+                SimpleDateFormat(format).parse(value as String)
+            } catch (_: ParseException) {
                 valid = false
             }
         }

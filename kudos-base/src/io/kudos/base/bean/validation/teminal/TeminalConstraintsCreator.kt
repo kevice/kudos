@@ -154,6 +154,7 @@ object TeminalConstraintsCreator {
         val annotationMap = mutableMapOf<String, MutableList<Annotation>>()
         for (annotation in clazz.annotations) {
             val prop = annotation::class.getMemberProperty("properties") // 自定义的类级别约束注解中, 代表类属性数组的属性名定义统一用properties
+            @Suppress("UNCHECKED_CAST")
             val propertyNames = prop.call(annotation) as Array<String>
             propertyNames.forEach { propertyName ->
                 val annoList = annotationMap[propertyName] ?: mutableListOf()

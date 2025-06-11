@@ -101,7 +101,7 @@ class ConstraintsValidator : ConstraintValidator<Constraints, Any?> {
             // 强制优先NotBlank、NotEmpty、NotNull、Null
             return if (priorityAnnotation != null) {
                 val sequenceAnnotations = linkedSetOf<Annotation>()
-                sequenceAnnotations.add(priorityAnnotation!!)
+                sequenceAnnotations.add(priorityAnnotation)
                 sequenceAnnotations.addAll(result)
                 sequenceAnnotations.toList()
             } else {
@@ -135,10 +135,11 @@ class ConstraintsValidator : ConstraintValidator<Constraints, Any?> {
     }
 
 
-    @Suppress(Consts.Suppress.UNCHECKED_CAST)
+    @Suppress("UNCHECKED_CAST")
     private fun doValidate(
         validator: Any, annotation: Annotation, value: Any?, context: ConstraintValidatorContext
     ): Boolean =
+        //!!! 强制转换不能去掉，否则会StackOverflow
         with(validator as ConstraintValidator<Annotation, Any?>) { isValid(value, context) }
 
     private fun addViolation(context: ConstraintValidatorContext, annotation: Annotation) {

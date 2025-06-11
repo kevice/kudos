@@ -19,7 +19,7 @@ class CnIdCardNoValidator : ConstraintValidator<CnIdCardNo, CharSequence?> {
     }
 
     override fun isValid(value: CharSequence?, constraintValidatorContext: ConstraintValidatorContext?): Boolean {
-        if (value as String? == null) {
+        if (value == null) {
             return true
         }
         return if (cnIdCardNo.support15) IdCardNoKit.isIdCardNo(value) else IdCardNoKit.isIdCardNo18(value)

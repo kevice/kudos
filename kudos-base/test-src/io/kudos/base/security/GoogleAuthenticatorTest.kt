@@ -21,17 +21,17 @@ class GoogleAuthenticatorTest {
         assertEquals(3, ga.windowSize, "初始 window_size 应为 3")
 
         // 设为合法值 1 - 17 之间
-        ga.setWindowSize(1)
+        ga.windowSize = 1
         assertEquals(1, ga.windowSize, "setWindowSize(1) 后，window_size 应改为 1")
 
-        ga.setWindowSize(17)
+        ga.windowSize = 17
         assertEquals(17, ga.windowSize, "setWindowSize(17) 后，window_size 应改为 17")
 
         // 设为非法值（<1、>17），不应该改变原有 window_size
-        ga.setWindowSize(0)
+        ga.windowSize = 0
         assertEquals(17, ga.windowSize, "setWindowSize(0) 无效，window_size 应保持为 17")
 
-        ga.setWindowSize(18)
+        ga.windowSize = 18
         assertEquals(17, ga.windowSize, "setWindowSize(18) 无效，window_size 应保持为 17")
     }
 

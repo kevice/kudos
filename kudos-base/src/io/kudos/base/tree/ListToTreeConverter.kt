@@ -63,7 +63,7 @@ object ListToTreeConverter {
     }
 
 
-    @Suppress(Consts.Suppress.UNCHECKED_CAST)
+    @Suppress("UNCHECKED_CAST")
     private fun <T, E : ITreeNode<T>> sort(nodes: List<E>, direction: DirectionEnum): List<E> {
         if (nodes.first() !is Comparable<*>) {
             error("类${nodes.first()::class.simpleName}必须实现Comparable接口！")

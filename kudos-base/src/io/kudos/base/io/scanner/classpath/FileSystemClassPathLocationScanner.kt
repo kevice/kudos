@@ -34,13 +34,16 @@ class FileSystemClassPathLocationScanner : IClassPathLocationScanner {
     @Throws(IOException::class)
     override fun findResourceNames(location: String, locationUrl: URL): Set<String> {
         val filePath = FileKit.toFile(locationUrl)?.path
+        if (filePath == null) {
+            return TreeSet()
+        }
         val folder = File(filePath)
         if (!folder.isDirectory) {
             logger.debug("Skipping path as it is not a directory: $filePath")
             return TreeSet()
         }
-        var classPathRootOnDisk = filePath?.substring(0, filePath.length - location.length)
-        if (!classPathRootOnDisk?.endsWith("/")!!) {
+        var classPathRootOnDisk = filePath.substring(0, filePath.length - location.length)
+        if (!classPathRootOnDisk.endsWith("/")) {
             classPathRootOnDisk = "$classPathRootOnDisk/"
         }
         logger.debug("Scanning starting at classpath root in filesystem: $classPathRootOnDisk")

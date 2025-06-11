@@ -332,7 +332,7 @@ object ValidatorFactory {
                 val luhnCheck = constructor.callBy(mapOf(constructor.parameters[3] to ignoreNonDigitCharacters))
                 getValidator(luhnCheck, value)
             }
-            is Currency -> CurrencyValidatorForMonetaryAmount().apply { initialize(annotation) }
+//            is Currency -> CurrencyValidatorForMonetaryAmount().apply { initialize(annotation) }
             is EAN -> EANValidator().apply { initialize(annotation) }
             is ISBN -> ISBNValidator().apply { initialize(annotation) }
             is Length -> LengthValidator().apply { initialize(annotation) }
@@ -371,6 +371,7 @@ object ValidatorFactory {
             validators = listOf(validators)
         }
 
+        @Suppress("UNCHECKED_CAST")
         return validators as List<ConstraintValidator<*, Any?>>
     }
 

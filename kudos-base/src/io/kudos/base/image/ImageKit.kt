@@ -229,7 +229,7 @@ object ImageKit {
                 // 解码成功返回BufferedImage对象
                 // 0即为对第0张图像解码(gif格式会有多张图像),前面获取宽度高度的方法中的参数0也是同样的意思
                 return imageReader.read(0, imageReader.defaultReadParam)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 imageReader.dispose()
                 // 如果解码失败尝试用下一个ImageReader解码
             }

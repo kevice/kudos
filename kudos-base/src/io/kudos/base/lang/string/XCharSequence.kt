@@ -40,7 +40,7 @@ fun CharSequence.capitalizeString(): String =
  * @author K
  * @since 1.0.0
  */
-@Suppress(Consts.Suppress.UNCHECKED_CAST)
+@Suppress("UNCHECKED_CAST")
 fun <T : Any> CharSequence.toType(returnType: KClass<out T>): T { //TODO junit
     return this.toString().run {
         when (returnType) {
