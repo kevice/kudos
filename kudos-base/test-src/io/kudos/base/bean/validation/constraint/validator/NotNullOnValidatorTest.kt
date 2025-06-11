@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.constraint.validator
 
-import io.kudos.base.bean.validation.constraint.annotaions.NotNullOn
+import io.kudos.base.bean.validation.constraint.annotations.NotNullOn
 import io.kudos.base.bean.validation.kit.ValidationKit
 import io.kudos.base.bean.validation.support.Depends
 import org.hibernate.validator.constraints.Length

@@ -941,8 +941,8 @@ object FileKit {
      * @author K
      * @since 1.0.0
      */
-    fun moveDirectoryToDirectory(src: File, destDir: File, createDestDir: Boolean): Unit =
-        FileUtils.moveDirectoryToDirectory(src, destDir, createDestDir)
+    fun moveDirectoryToDirectory(srcDir: File, destDir: File, createDestDir: Boolean): Unit =
+        FileUtils.moveDirectoryToDirectory(srcDir, destDir, createDestDir)
 
     /**
      * 移动一个文件
@@ -993,7 +993,7 @@ object FileKit {
      * 确定指定的文件是否是一个符号链接，而不是一个实际的文件。
      * 如果在路径中的任意位置有一个符号链接将返回false. 只有当指定的文件是一个实际文件时才返回true.
      *
-     * **注意:** 如果当前使用的系统由[FilenameKit.isSystemWindows]检测到是Windows,
+     * **注意:** 如果当前使用的系统检测到是Windows,
      * 那么当前的实现总是返回`false`
      *
      * @param file 要检查的文件

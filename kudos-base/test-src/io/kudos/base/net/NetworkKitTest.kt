@@ -73,7 +73,7 @@ internal class NetworkKitTest {
             )
 
             // 验证每个返回值都符合 “XX:XX:XX:XX:XX:XX” 或 “XX-XX-XX-XX-XX-XX” 格式
-            val regex = "^([0-9A-Fa-f]{2}([-:])){5}([0-9A-Fa-f]{2})\$"
+            val regex = "^([0-9A-Fa-f]{2}([-:])){5}([0-9A-Fa-f]{2})$"
             val pattern = Pattern.compile(regex)
 
             for (mac in macList) {

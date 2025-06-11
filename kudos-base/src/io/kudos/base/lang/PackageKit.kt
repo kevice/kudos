@@ -171,12 +171,12 @@ object PackageKit {
             return
         }
         // 如果存在 就获取包下的所有文件 包括目录
-        val dirfiles = dir.listFiles { file ->
+        val dirFiles = dir.listFiles { file ->
             // 自定义过滤规则 如果可以循环(包含子目录) 或则是以.class结尾的文件(编译好的java类文件)
             recursive && file.isDirectory || file.name.endsWith(".class")
         }
         // 循环所有文件
-        for (file in dirfiles) {
+        for (file in dirFiles) {
             // 如果是目录 则继续扫描
             if (file.isDirectory) {
                 findAndAddClassesInPackageByFile(

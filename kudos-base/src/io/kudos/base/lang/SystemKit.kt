@@ -37,16 +37,16 @@ object SystemKit {
             val peClass = Class.forName("java.lang.ProcessEnvironment")
             val envField = peClass.getDeclaredField("theEnvironment").apply { isAccessible = true }
             @Suppress("UNCHECKED_CAST")
-            val env: MutableMap<String, String> = envField.get(null) as MutableMap<String, String>
+            val env = envField.get(null) as MutableMap<String, String>
             env.putAll(vars)
 
             val cienvField = peClass.getDeclaredField("theCaseInsensitiveEnvironment").apply { isAccessible = true }
             @Suppress("UNCHECKED_CAST")
-            val cienv: MutableMap<String, String> = cienvField.get(null) as MutableMap<String, String>
+            val cienv = cienvField.get(null) as MutableMap<String, String>
             cienv.putAll(vars)
 
             return  // 如果这一段没有抛异常，就直接返回
-        } catch (ignore: Throwable) {
+        } catch (_: Throwable) {
             // 任何反射失败都走下面的备用分支
         }
 
@@ -129,7 +129,7 @@ object SystemKit {
      * @author K
      * @since 1.0.0
      */
-    val LINE_SEPARATOR = System.getProperty("line.separator")
+    val LINE_SEPARATOR: String = System.lineSeparator()
 
     private val debugPattern = Pattern.compile("-Xdebug|jdwp")
 

@@ -70,13 +70,11 @@ object IdCardNoKit {
             idCard18 = idCardNo15.substring(0, 6) + sYear + idCardNo15.substring(8)
             // 转换字符数组
             val cArr = idCard18.toCharArray()
-            val iCard = converCharToInt(cArr)
+            val iCard = convertCharToInt(cArr)
             val iSum17 = getPowerSum(iCard)
             // 获取校验位
             val sVal = getCheckCode18(iSum17)
-            idCard18 += if (sVal.isNotEmpty()) {
-                sVal
-            } else {
+            idCard18 += sVal.ifEmpty {
                 return null
             }
         } else {
@@ -118,7 +116,7 @@ object IdCardNoKit {
             // 第18位
             if (code17.isNumeric()) {
                 val cArr = code17.toCharArray()
-                val iCard = converCharToInt(cArr)
+                val iCard = convertCharToInt(cArr)
                 val iSum17 = getPowerSum(iCard)
                 // 获取校验位
                 val `val` = getCheckCode18(iSum17)
@@ -261,7 +259,7 @@ object IdCardNoKit {
         return !str.isBlank() && str.matches("^[1|5|7][0-9]{6}\\(?[0-9A-Z]\\)?$".toRegex())
     }
 
-    private fun converCharToInt(ca: CharArray): IntArray {
+    private fun convertCharToInt(ca: CharArray): IntArray {
         val len = ca.size
         val iArr = IntArray(len)
         for (i in 0 until len) {
@@ -400,18 +398,16 @@ object IdCardNoKit {
     private fun valiDate(iYear: Int, iMonth: Int, iDate: Int): Boolean {
         val cal = Calendar.getInstance()
         val year = cal[Calendar.YEAR]
-        val datePerMonth: Int
         if (iYear < MIN || iYear >= year) {
             return false
         }
         if (iMonth < 1 || iMonth > 12) {
             return false
         }
-        datePerMonth = when (iMonth) {
+        val datePerMonth: Int = when (iMonth) {
             4, 6, 9, 11 -> 30
             2 -> {
-                val dm =
-                    (iYear % 4 == 0 && iYear % 100 != 0 || iYear % 400 == 0) && iYear > MIN && iYear < year
+                val dm = (iYear % 4 == 0 && iYear % 100 != 0 || iYear % 400 == 0) && iYear > MIN
                 if (dm) 29 else 28
             }
             else -> 31

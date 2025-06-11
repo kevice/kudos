@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.support
 
-import io.kudos.base.bean.validation.constraint.annotaions.*
+import io.kudos.base.bean.validation.constraint.annotations.*
 import io.kudos.base.bean.validation.constraint.validator.*
 import org.hibernate.validator.constraints.*
 import org.hibernate.validator.constraints.Currency

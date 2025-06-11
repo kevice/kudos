@@ -173,9 +173,9 @@ internal class StringEscapeKitTest {
 
     @Test
     fun escapeCsv_NoSpecialChars_ReturnsSame() {
-        val input = "simplevalue"
+        val input = "simpleValue"
         val escaped = StringEscapeKit.escapeCsv(input)
-        assertEquals("simplevalue", escaped)
+        assertEquals("simpleValue", escaped)
     }
 
     @Test

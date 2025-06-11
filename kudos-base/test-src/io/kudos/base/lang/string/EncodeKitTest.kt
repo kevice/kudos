@@ -143,8 +143,8 @@ internal class EncodeKitTest {
         val chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
         val expected = """
             ${chars[(0x7F and 0xFF) % chars.length]}
-            ${chars[(0x80.toInt() and 0xFF) % chars.length]}
-            ${chars[(0xFF.toInt() and 0xFF) % chars.length]}
+            ${chars[(0x80 and 0xFF) % chars.length]}
+            ${chars[(0xFF and 0xFF) % chars.length]}
         """.trimIndent().replace("\n", "")
         assertEquals(expected, EncodeKit.encodeBase62(input))
     }

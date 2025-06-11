@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.teminal.convert.converter.impl
 
-import io.kudos.base.bean.validation.constraint.annotaions.Compare
+import io.kudos.base.bean.validation.constraint.annotations.Compare
 import io.kudos.base.lang.reflect.getMemberProperty
 import kotlin.reflect.full.isSubtypeOf
 import kotlin.reflect.full.starProjectedType
@@ -12,7 +12,7 @@ import kotlin.reflect.full.starProjectedType
  * @author K
  * @since 1.0.0
  */
-class CompareConstraintConvertor(annotation: Annotation) : DefaultConstaintConvertor(annotation) {
+class CompareConstraintConvertor(annotation: Annotation) : DefaultConstraintConvertor(annotation) {
 
     override fun getRule(constraintAnnotation: Annotation): LinkedHashMap<String, Any> {
         val map = super.getRule(constraintAnnotation)

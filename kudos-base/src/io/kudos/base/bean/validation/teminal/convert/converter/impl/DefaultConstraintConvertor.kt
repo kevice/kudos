@@ -9,7 +9,7 @@ import kotlin.reflect.full.memberProperties
  * @author K
  * @since 1.0.0
  */
-open class DefaultConstaintConvertor(annotation: Annotation) : AbstractConstraintConvertor(annotation) {
+open class DefaultConstraintConvertor(annotation: Annotation) : AbstractConstraintConvertor(annotation) {
 
     override fun getRule(constraintAnnotation: Annotation): LinkedHashMap<String, Any> {
         val rules = linkedMapOf<String, Any>()

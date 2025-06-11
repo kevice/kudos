@@ -71,7 +71,7 @@ abstract class AbstractConstraintConvertor(protected var annotation: Annotation)
      * @param rule Map<注解属性名></注解属性名>，注解属性值>
      */
     private fun handleMessageI18n(rule: Map<String, Any>) {
-//        System.out.println(rule);
+//        System.out.println(rule); //TODO
     }
 
 }

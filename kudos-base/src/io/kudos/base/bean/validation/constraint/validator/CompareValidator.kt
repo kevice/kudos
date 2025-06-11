@@ -1,7 +1,7 @@
 package io.kudos.base.bean.validation.constraint.validator
 
 import io.kudos.base.bean.BeanKit
-import io.kudos.base.bean.validation.constraint.annotaions.Compare
+import io.kudos.base.bean.validation.constraint.annotations.Compare
 import io.kudos.base.bean.validation.support.DependsValidator
 import io.kudos.base.bean.validation.support.ValidationContext
 import jakarta.validation.ConstraintValidator
@@ -49,7 +49,7 @@ class CompareValidator : ConstraintValidator<Compare, Any?> {
             }
             value.forEachIndexed { index, v ->
                 if (v !is Comparable<*> || anotherValue[index] !is Comparable<*>) {
-                    error("【Compare】约束注解校验的两个数组中的每个元素的类型必须都实现【Comparablere】接口！")
+                    error("【Compare】约束注解校验的两个数组中的每个元素的类型必须都实现【Comparable】接口！")
                 }
                 val result = compare.logic.compare(v, anotherValue[index] as Comparable<*>)
                 if (!result) { // 只要数组中一对元素校验不通过，就当整个校验不过
@@ -60,7 +60,7 @@ class CompareValidator : ConstraintValidator<Compare, Any?> {
         } else {
             // 处理值不是数组的情况
             if (value !is Comparable<*>) {
-                error("【Compare】约束注解校验的两个属性类型必须都实现【Comparablere】接口！")
+                error("【Compare】约束注解校验的两个属性类型必须都实现【Comparable】接口！")
             }
             return compare.logic.compare(value, anotherValue as Comparable<*>)
         }

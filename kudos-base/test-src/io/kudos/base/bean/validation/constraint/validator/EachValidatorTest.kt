@@ -1,7 +1,7 @@
 package io.kudos.base.bean.validation.constraint.validator
 
-import io.kudos.base.bean.validation.constraint.annotaions.Constraints
-import io.kudos.base.bean.validation.constraint.annotaions.Each
+import io.kudos.base.bean.validation.constraint.annotations.Constraints
+import io.kudos.base.bean.validation.constraint.annotations.Each
 import io.kudos.base.bean.validation.kit.ValidationKit
 import jakarta.validation.constraints.NotBlank
 import org.hibernate.validator.constraints.Length

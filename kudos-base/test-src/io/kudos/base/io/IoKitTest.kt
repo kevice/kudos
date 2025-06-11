@@ -3,6 +3,9 @@ package io.kudos.base.io
 import java.io.*
 import java.net.URLConnection
 import java.nio.charset.UnsupportedCharsetException
+import kotlin.io.path.createTempFile
+import kotlin.io.path.readBytes
+import kotlin.io.path.writeText
 import kotlin.test.*
 
 /**
@@ -119,12 +122,12 @@ class IoKitTest {
         tmpFile.writeText("URI and URL test")
 
         // 从 URI 读取
-        val uri = tmpFile.toURI()
+        val uri = tmpFile.toUri()
         val fromUri = IoKit.toByteArray(uri)
         assertEquals(tmpFile.readBytes().toString(Charsets.UTF_8), fromUri.toString(Charsets.UTF_8))
 
         // 从 URL 读取
-        val url = tmpFile.toURI().toURL()
+        val url = tmpFile.toUri().toURL()
         val fromUrl = IoKit.toByteArray(url)
         assertEquals(tmpFile.readBytes().toString(Charsets.UTF_8), fromUrl.toString(Charsets.UTF_8))
 
@@ -171,7 +174,7 @@ class IoKitTest {
         // toString(URI, encoding)
         val tmp = createTempFile(suffix = ".txt")
         tmp.writeText(text)
-        val uri = tmp.toURI()
+        val uri = tmp.toUri()
         val str4 = IoKit.toString(uri, Charsets.UTF_8.name())
         assertEquals(text, str4)
 
@@ -226,7 +229,7 @@ class IoKitTest {
         val it1 = IoKit.lineIterator(reader)
         val collected1 = mutableListOf<String>()
         while (it1.hasNext()) {
-            collected1 += it1.nextLine()
+            collected1 += it1.next()
         }
         assertEquals(lines, collected1)
         it1.close()
@@ -236,7 +239,7 @@ class IoKitTest {
         val it2 = IoKit.lineIterator(input, Charsets.UTF_8.name())
         val collected2 = mutableListOf<String>()
         while (it2.hasNext()) {
-            collected2 += it2.nextLine()
+            collected2 += it2.next()
         }
         assertEquals(lines, collected2)
         it2.close()
@@ -335,14 +338,14 @@ class IoKitTest {
         // copyLarge(InputStream, OutputStream)
         val input2 = ByteArrayInputStream(text.toByteArray())
         val out2 = ByteArrayOutputStream()
-        val longCount = IoKit.copyLarge(input2, out2)
+        IoKit.copyLarge(input2, out2)
         assertEquals(text, out2.toString(Charsets.UTF_8.name()))
 
         // copyLarge(InputStream, OutputStream, buffer)
         val input3 = ByteArrayInputStream(text.toByteArray())
         val out3 = ByteArrayOutputStream()
         val buf = ByteArray(4)
-        val longCount2 = IoKit.copyLarge(input3, out3, buf)
+        IoKit.copyLarge(input3, out3, buf)
         assertEquals(text, out3.toString(Charsets.UTF_8.name()))
 
         // copy(InputStream, Writer, encoding)
@@ -361,14 +364,14 @@ class IoKitTest {
         // copyLarge(Reader, Writer)
         val reader2 = StringReader(text)
         val sw3 = StringWriter()
-        val largeChars = IoKit.copyLarge(reader2, sw3)
+        IoKit.copyLarge(reader2, sw3)
         assertEquals(text, sw3.toString())
 
         // copyLarge(Reader, Writer, buffer)
         val reader3 = StringReader(text)
         val sw4 = StringWriter()
         val charBuf = CharArray(3)
-        val largeChars2 = IoKit.copyLarge(reader3, sw4, charBuf)
+        IoKit.copyLarge(reader3, sw4, charBuf)
         assertEquals(text, sw4.toString())
 
         // copy(Reader, OutputStream, encoding)

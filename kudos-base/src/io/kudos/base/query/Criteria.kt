@@ -174,7 +174,7 @@ class Criteria : Serializable {
             val operator = criterion.operator
             val value = criterion.value
             if (value != null && value !is Collection<*> && value !is Array<*> && "" != value || value is Collection<*> && !value.isEmpty()
-                || value is Array<*> && (value).size != 0 || operator.acceptNull
+                || value is Array<*> && value.isNotEmpty() || operator.acceptNull
             ) {
                 resultList.add(criterion)
             }

@@ -49,11 +49,11 @@ enum class AssertLogicEnum {
      */
     fun compare(value: Any?): Boolean {
         when (this) {
-            AssertLogicEnum.IS_NULL -> return OperatorEnum.IS_NULL.compare(value, null)
-            AssertLogicEnum.IS_NOT_NULL -> return OperatorEnum.IS_NOT_NULL.compare(value, null)
-            AssertLogicEnum.IS_EMPTY -> return OperatorEnum.IS_EMPTY.compare(value, null)
-            AssertLogicEnum.IS_NOT_EMPTY -> return OperatorEnum.IS_NOT_EMPTY.compare(value, null)
-            AssertLogicEnum.IS_BLANK -> {
+            IS_NULL -> return OperatorEnum.IS_NULL.compare(value, null)
+            IS_NOT_NULL -> return OperatorEnum.IS_NOT_NULL.compare(value, null)
+            IS_EMPTY -> return OperatorEnum.IS_EMPTY.compare(value, null)
+            IS_NOT_EMPTY -> return OperatorEnum.IS_NOT_EMPTY.compare(value, null)
+            IS_BLANK -> {
                 if (value == null) {
                     return true
                 }
@@ -63,7 +63,7 @@ enum class AssertLogicEnum {
                 return OperatorEnum.IS_NULL.compare(value, null) || OperatorEnum.IS_EMPTY.compare(value, null)
             }
 
-            AssertLogicEnum.IS_NOT_BLANK -> {
+            IS_NOT_BLANK -> {
                 if (value == null) {
                     return false
                 }
@@ -73,7 +73,6 @@ enum class AssertLogicEnum {
                 return OperatorEnum.IS_NOT_NULL.compare(value, null) && OperatorEnum.IS_NOT_EMPTY.compare(value, null)
             }
 
-            else -> return false
         }
     }
 }

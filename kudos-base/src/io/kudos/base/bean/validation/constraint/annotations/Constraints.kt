@@ -1,4 +1,4 @@
-package io.kudos.base.bean.validation.constraint.annotaions
+package io.kudos.base.bean.validation.constraint.annotations
 
 import io.kudos.base.bean.validation.constraint.validator.ConstraintsValidator
 import io.kudos.base.bean.validation.support.Depends
@@ -192,7 +192,7 @@ annotation class Constraints(
     /**
      * 错误提示消息，仅在andOr值为Or时有意义
      */
-    val message: String = "io.kudos.base.bean.validation.constraint.annotaions.Constraints.message",
+    val message: String = "io.kudos.base.bean.validation.constraint.annotations.Constraints.message",
 
     /**
      * 该校验规则所从属的分组类，通过分组可以过滤校验规则或排序校验顺序。默认值必须是空数组。

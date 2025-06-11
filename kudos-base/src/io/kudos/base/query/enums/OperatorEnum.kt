@@ -168,6 +168,7 @@ enum class OperatorEnum constructor(
      * @author K
      * @since 1.0.0
      */
+    @Suppress("UNCHECKED_CAST")
     fun compare(v1: Any?, v2: Any?): Boolean {
         return when (this) {
             EQ -> {
@@ -186,7 +187,7 @@ enum class OperatorEnum constructor(
                     return false
                 }
                 if (v1 is String && v2 is String) {
-                    v1.toString().lowercase() == v2.toString().lowercase()
+                    v1.lowercase() == v2.lowercase()
                 } else v1 == v2
             }
             NE, LG -> {
@@ -197,7 +198,7 @@ enum class OperatorEnum constructor(
                     return true
                 }
                 if (v1 is String && v2 is String) {
-                    v1.toString() != v2.toString()
+                    v1 != v2
                 } else v1 != v2
             }
             GE -> {

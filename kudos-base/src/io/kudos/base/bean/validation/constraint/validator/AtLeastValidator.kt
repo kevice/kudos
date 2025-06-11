@@ -1,7 +1,7 @@
 package io.kudos.base.bean.validation.constraint.validator
 
 import io.kudos.base.bean.BeanKit.getProperty
-import io.kudos.base.bean.validation.constraint.annotaions.AtLeast
+import io.kudos.base.bean.validation.constraint.annotations.AtLeast
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext
 

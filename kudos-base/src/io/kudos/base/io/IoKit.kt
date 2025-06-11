@@ -400,7 +400,6 @@ object IoKit {
      * 将一个`byte[]`的内容写入一个`Writer`,
      * 使用指定的默认编码
      * 字符编码名称可以在这里找到： [IANA](http://www.iana.org/assignments/character-sets).
-     * 该方法使用 [String.String].
      *
      * @param data 待写入的字节数组, 在输出时不会被修改
      * @param output 要写入的`Writer`
@@ -429,7 +428,6 @@ object IoKit {
      * 将一个`char[]`的内容写入一个`OutputStream`,
      * 使用指定的编码
      * 字符编码名称可以在这里找到： [IANA](http://www.iana.org/assignments/character-sets).
-     * 该方法使用 [String.String] 和 [String.getBytes].
      *
      * @param data 待写入的字符数组, 在输出时不会被修改
      * @param output 要写入的`OutputStream`
@@ -441,6 +439,7 @@ object IoKit {
      */
     fun write(data: CharArray, output: OutputStream, encoding: String? = null): Unit =
         IOUtils.write(data, output, encoding)
+
     //endregion write char[]
 
     //region write CharSequence
@@ -460,7 +459,6 @@ object IoKit {
      * 使用指定的编码
      * 字符编码名称可以在这里找到： [IANA](http://www.iana.org/assignments/character-sets).
      *
-     * 该方法使用 [String.getBytes].
      *
      * @param data 待写入的`CharSequence`
      * @param output 要写入的`OutputStream`
@@ -490,7 +488,6 @@ object IoKit {
      * 将一个`CharSequence`的内容写入一个`OutputStream`,
      * 使用指定的编码
      * 字符编码名称可以在这里找到： [IANA](http://www.iana.org/assignments/character-sets).
-     * 该方法使用 [String.getBytes].
      *
      * @param data 待写入的`String`
      * @param output 要写入的`OutputStream`

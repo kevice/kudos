@@ -94,7 +94,7 @@ object Base36Kit {
      * @return
      */
     fun encrypt(src: String, key: Long, capitalOnly: Boolean): String { //乱序
-        var targStr = outOrder(src, key)
+        val targStr = outOrder(src, key)
         //字符串转换
         return transStr(targStr, key, true, capitalOnly)
     }
@@ -152,8 +152,7 @@ object Base36Kit {
         val len2 = keyStr.length
         val skipNum = (key % 100 % len1).toInt()
         val len = if (len1 < len2) len1 else len2
-        var num =
-            Array(len) { arrayOfNulls<String>(3) }
+        var num = Array(len) { arrayOfNulls<String>(3) }
         //秘钥转换
         val keyArr = IntArray(keyStr.length)
         for (i in keyStr.indices) {
@@ -199,10 +198,10 @@ object Base36Kit {
     }
 
     //字符串转换
-    private fun transStr(inStr: String, transNum: Long, plus_minus: Boolean, band36_62: Boolean): String {
+    private fun transStr(inStr: String, transNum: Long, plusMinus: Boolean, band36: Boolean): String {
         var s = inStr
         var band = 62
-        if (band36_62) {
+        if (band36) {
             band = 36
             //36进制不包括小写字母，小写字母以大写字母来处理
             s = s.uppercase(Locale.getDefault())
@@ -216,7 +215,7 @@ object Base36Kit {
             val j = len1 - 1 - i
             //转为自定义的36位或/62位编码
             ch[j] = asciiToDiy(ch[j].code).toChar()
-            if (plus_minus) { //System.out.print((int)ch[j] + " " + ch[j] + " ");
+            if (plusMinus) { //System.out.print((int)ch[j] + " " + ch[j] + " ");
                 ch[j] = ((ch[j].code + transNum.toString().substring(i, i + 1).toInt()) % band).toChar()
                 //System.out.print((int)ch[j] + " " + ch[j] + " ");
             } else { //System.out.print((int)ch[j] + " " + ch[j] + " ");
@@ -225,7 +224,7 @@ object Base36Kit {
                 //System.out.print((int)ch[j] + " " + ch[j] + " ");
             }
             //把自定义编码转回ASCII码
-            ch[j] = diyToascii(ch[j].code).toChar()
+            ch[j] = diyToAscii(ch[j].code).toChar()
         }
         return String(ch)
     }
@@ -241,7 +240,7 @@ object Base36Kit {
     }
 
     //把自定义的36位或/62位编码重新转为ASCII码，0~9为数字，10~35为大写字母，36~51位为小写字母
-    private fun diyToascii(codeNum: Int): Int { //把自定义编码转回ASCII码
+    private fun diyToAscii(codeNum: Int): Int { //把自定义编码转回ASCII码
         return when(codeNum) {
             in -1..10 -> codeNum + 48
             in 9..36 -> codeNum - 10 + 65

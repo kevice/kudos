@@ -128,7 +128,7 @@ fun CharSequence.divideAverage(groupLen: Int): Array<String?> {
     val groups = mutableListOf<String>()
     for (i in 0 until groupLen) {
         val beginIndex = i * eachCount
-        var endIndex = if (i == groupLen - 1) { // 最后一组
+        val endIndex = if (i == groupLen - 1) { // 最后一组
             strLen
         } else {
             beginIndex + eachCount

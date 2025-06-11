@@ -34,7 +34,7 @@ internal class Base36KitTest {
 
 
     @Test
-    fun singleDigit_roundtrip_encryptStripDecrypt_defaultKey() {
+    fun singleDigit_roundTrip_encryptStripDecrypt_defaultKey() {
         val input = "0"
         val cipher = Base36Kit.encryptIgnoreCase(input)
         assertTrue(cipher.length >= 2)
@@ -54,7 +54,7 @@ internal class Base36KitTest {
     }
 
     @Test
-    fun singleChar_encryptDecrypt_capitalOnlyFalse_roundtrip() {
+    fun singleChar_encryptDecrypt_capitalOnlyFalse_roundTrip() {
         val key = 123456789012345678L
 
         // 小写 'b'

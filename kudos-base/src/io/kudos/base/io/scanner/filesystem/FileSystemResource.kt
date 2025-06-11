@@ -23,11 +23,11 @@ import java.nio.charset.Charset
 /**
  * A resource on the filesystem.
  */
-class FileSystemResource(location: String?) : Resource, Comparable<FileSystemResource> {
+class FileSystemResource(location: String) : Resource, Comparable<FileSystemResource> {
     /**
      * The location of the resource on the filesystem.
      */
-    private val loc: File
+    private val loc: File = File(location)
 
     /**
      * @return The location of the resource on the classpath.
@@ -96,14 +96,5 @@ class FileSystemResource(location: String?) : Resource, Comparable<FileSystemRes
 
     override fun compareTo(other: FileSystemResource): Int {
         return loc.compareTo(other.loc)
-    }
-
-    /**
-     * Creates a new ClassPathResource.
-     *
-     * @param location The location of the resource on the filesystem.
-     */
-    init {
-        this.loc = File(location)
     }
 }

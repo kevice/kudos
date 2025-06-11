@@ -96,7 +96,7 @@ object XmlKit {
         val jaxbContext: JAXBContext = getJaxbContext(clazz)
         val marshaller: Marshaller = jaxbContext.createMarshaller()
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true) //格式化输出，即按标签自动换行，否则就是一行输出
-        marshaller.setProperty(Marshaller.JAXB_FRAGMENT, false); //是否省略xml头信息，默认不省略（false）
+        marshaller.setProperty(Marshaller.JAXB_FRAGMENT, false) //是否省略xml头信息，默认不省略（false）
 //        marshaller.setProperty(Marshaller.JAXB_NO_NAMESPACE_SCHEMA_LOCATION, "")
         if (encoding.isNotBlank()) {
             marshaller.setProperty(Marshaller.JAXB_ENCODING, encoding)
@@ -115,7 +115,7 @@ object XmlKit {
     private fun createUnmarshaller(clazz: KClass<*>): Unmarshaller = getJaxbContext(clazz).createUnmarshaller()
 
     private fun getJaxbContext(clazz: KClass<*>): JAXBContext {
-        var jaxbContext = JAXBContext.newInstance(clazz.java, CollectionWrapper::class.java)
+        val jaxbContext = JAXBContext.newInstance(clazz.java, CollectionWrapper::class.java)
         jaxbContexts.putIfAbsent(clazz, jaxbContext)
         return jaxbContext
     }

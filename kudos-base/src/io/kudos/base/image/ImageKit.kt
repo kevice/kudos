@@ -202,10 +202,10 @@ object ImageKit {
      */
     fun readMemoryImage(imgBytes: ByteArray, format: String? = null): BufferedImage {
         // 将字节数组转为InputStream，再转为MemoryCacheImageInputStream
-        val imageInputstream = MemoryCacheImageInputStream(ByteArrayInputStream(imgBytes))
+        val imageInputStream = MemoryCacheImageInputStream(ByteArrayInputStream(imgBytes))
         // 获取所有能识别数据流格式的ImageReader对象
         val it = if (format == null) {
-            var imageReaders = ImageIO.getImageReaders(imageInputstream)
+            val imageReaders = ImageIO.getImageReaders(imageInputStream)
 //            if (!imageReaders.hasNext()) {
 //                imageReaders = ImageIO.getImageReaders(FileImageInputStream(File(srcFilePath)))
 //            }
@@ -217,7 +217,7 @@ object ImageKit {
         while (it.hasNext()) {
             val imageReader = it.next()
             // 设置解码器的输入流
-            imageReader.setInput(imageInputstream, true, true)
+            imageReader.setInput(imageInputStream, true, true)
             // 图像文件格式后缀
             val suffix: String = imageReader.formatName.trim().lowercase()
             // 图像宽度
@@ -234,7 +234,7 @@ object ImageKit {
                 // 如果解码失败尝试用下一个ImageReader解码
             }
         }
-        imageInputstream.close()
+        imageInputStream.close()
         throw IOException("unsupported image format")
     }
 
@@ -312,16 +312,16 @@ object ImageKit {
         renderer.tree = rootNode
         val docWidth = ctx.documentSize.width.toFloat()
         val docHeight = ctx.documentSize.height.toFloat()
-        var xscale = width / docWidth
-        var yscale = height / docHeight
+        var xScale = width / docWidth
+        var yScale = height / docHeight
         if (!stretch) {
-            val scale = xscale.coerceAtMost(yscale)
-            xscale = scale
-            yscale = scale
+            val scale = xScale.coerceAtMost(yScale)
+            xScale = scale
+            yScale = scale
         }
-        val px = AffineTransform.getScaleInstance(xscale.toDouble(), yscale.toDouble())
-        val tx = (-0 + (width / xscale - docWidth) / 2).toDouble()
-        val ty = (-0 + (height / yscale - docHeight) / 2).toDouble()
+        val px = AffineTransform.getScaleInstance(xScale.toDouble(), yScale.toDouble())
+        val tx = (-0 + (width / xScale - docWidth) / 2).toDouble()
+        val ty = (-0 + (height / yScale - docHeight) / 2).toDouble()
         px.translate(tx, ty)
         //cgn.setViewingTransform(px);
         renderer.updateOffScreen(width, height)

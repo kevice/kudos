@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.constraint.validator
 
-import io.kudos.base.bean.validation.constraint.annotaions.DictEnumCode
+import io.kudos.base.bean.validation.constraint.annotations.DictEnumCode
 import io.kudos.base.lang.EnumKit
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext

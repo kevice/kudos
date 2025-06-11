@@ -79,10 +79,10 @@ object PropertyResolver {
         if (isArrayProperty(prop)) {
             prop = prop.replace("\\[\\d+]".toRegex(), Matcher.quoteReplacement("$$"))
         }
-        if (prop.contains(".")) {
-            return prop.replace("\\.".toRegex(), "_")
+        return if (prop.contains(".")) {
+            prop.replace("\\.".toRegex(), "_")
         } else {
-            return "$$prop"
+            "$$prop"
         }
     }
 

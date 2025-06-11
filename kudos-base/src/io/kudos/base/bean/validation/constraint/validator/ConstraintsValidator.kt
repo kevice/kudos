@@ -1,7 +1,7 @@
 package io.kudos.base.bean.validation.constraint.validator
 
-import io.kudos.base.bean.validation.constraint.annotaions.AtLeast
-import io.kudos.base.bean.validation.constraint.annotaions.Constraints
+import io.kudos.base.bean.validation.constraint.annotations.AtLeast
+import io.kudos.base.bean.validation.constraint.annotations.Constraints
 import io.kudos.base.bean.validation.support.ValidationContext
 import io.kudos.base.bean.validation.support.ValidatorFactory
 import io.kudos.base.lang.reflect.getMemberProperty
@@ -47,14 +47,13 @@ class ConstraintsValidator : ConstraintValidator<Constraints, Any?> {
             }
             return pass
         } else { // 有一个约束成功就算通过，并且不受failFast影响
-            var pass = false
             annotations.forEach {
-                pass = validate(it, value, bean, context)
+                val pass = validate(it, value, bean, context)
                 if (pass) {
                     return true
                 }
             }
-            return pass
+            return false
         }
     }
 

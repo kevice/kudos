@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.teminal.convert.converter.impl
 
-import io.kudos.base.bean.validation.constraint.annotaions.Compare
+import io.kudos.base.bean.validation.constraint.annotations.Compare
 import io.kudos.base.bean.validation.support.Depends
 import io.kudos.base.bean.validation.teminal.convert.ConstraintConvertContext
 import io.kudos.base.support.logic.LogicOperatorEnum

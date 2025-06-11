@@ -18,21 +18,21 @@ class GoogleAuthenticatorTest {
         val ga = GoogleAuthenticator()
 
         // 默认 window_size = 3
-        assertEquals(3, ga.window_size, "初始 window_size 应为 3")
+        assertEquals(3, ga.windowSize, "初始 window_size 应为 3")
 
         // 设为合法值 1 - 17 之间
         ga.setWindowSize(1)
-        assertEquals(1, ga.window_size, "setWindowSize(1) 后，window_size 应改为 1")
+        assertEquals(1, ga.windowSize, "setWindowSize(1) 后，window_size 应改为 1")
 
         ga.setWindowSize(17)
-        assertEquals(17, ga.window_size, "setWindowSize(17) 后，window_size 应改为 17")
+        assertEquals(17, ga.windowSize, "setWindowSize(17) 后，window_size 应改为 17")
 
         // 设为非法值（<1、>17），不应该改变原有 window_size
         ga.setWindowSize(0)
-        assertEquals(17, ga.window_size, "setWindowSize(0) 无效，window_size 应保持为 17")
+        assertEquals(17, ga.windowSize, "setWindowSize(0) 无效，window_size 应保持为 17")
 
         ga.setWindowSize(18)
-        assertEquals(17, ga.window_size, "setWindowSize(18) 无效，window_size 应保持为 17")
+        assertEquals(17, ga.windowSize, "setWindowSize(18) 无效，window_size 应保持为 17")
     }
 
     @Test
@@ -77,26 +77,25 @@ class GoogleAuthenticatorTest {
         val t = 0 / 30L
 
         // 3）通过反射调用私有的 verify_code(decodedKey, t) 来生成“正确”的 six-digit code
-        val correctCodeObj = GoogleAuthenticator.verify_code(decodedKey, t)
+        val correctCodeObj = GoogleAuthenticator.verifyCode(decodedKey, t)
         // correctCodeObj 是一个 0..999999 之间的整数
 
         // 4）新建一个实例，默认 window_size = 3，可以在 [-3..3] 范围内校验
         val ga = GoogleAuthenticator()
 
         // 5.1）用正确的 code 去检查：应返回 true
-        val resultTrue = ga.check_code(secret, correctCodeObj.toLong(), timeMsec)
+        val resultTrue = ga.checkCode(secret, correctCodeObj.toLong(), timeMsec)
         assertTrue(resultTrue, "使用正确 code，在默认窗口大小下，check_code 应返回 true")
 
         // 5.2）用错误的 code 去检查：应返回 false
         val wrongCode = (correctCodeObj + 1) % 1000000  // 制造一个不同的验证码
-        val resultFalse = ga.check_code(secret, wrongCode.toLong(), timeMsec)
+        val resultFalse = ga.checkCode(secret, wrongCode.toLong(), timeMsec)
         assertFalse(resultFalse, "使用错误 code，应返回 false")
 
         // 5.3）在超出 window 范围的偏移时间内也应返回 false
-        // 这里取 t + (window_size + 1) 作偏移
-        val outOfWindowT = t + (ga.window_size + 1)
-        val outOfWindowCode = GoogleAuthenticator.verify_code(decodedKey, outOfWindowT)
-        val resultOutOfWindow = ga.check_code(secret, outOfWindowCode.toLong(), timeMsec)
+        val outOfWindowT = ga.windowSize + 1L
+        val outOfWindowCode = GoogleAuthenticator.verifyCode(decodedKey, outOfWindowT)
+        val resultOutOfWindow = ga.checkCode(secret, outOfWindowCode.toLong(), timeMsec)
         assertFalse(resultOutOfWindow, "超出 window_size 范围的 code，应返回 false")
     }
 
@@ -107,12 +106,12 @@ class GoogleAuthenticatorTest {
         // 使用一个固定 key, 例如：全 0 的 10 个字节
         val key = ByteArray(10) { 0x00 }
         // 在 t=0 时应该有一个确定值
-        val codeAt0 = GoogleAuthenticator.verify_code(key, 0L)
+        val codeAt0 = GoogleAuthenticator.verifyCode(key, 0L)
         // 再次调用（同样 key、同样 t），值应该相同
-        val codeAt0_2 = GoogleAuthenticator.verify_code(key, 0L)
-        assertEquals(codeAt0, codeAt0_2, "同一 key、同一 t，多次调用 verify_code 应返回相同值")
+        val codeAt02 = GoogleAuthenticator.verifyCode(key, 0L)
+        assertEquals(codeAt0, codeAt02, "同一 key、同一 t，多次调用 verify_code 应返回相同值")
         // 对不同 t 值，code 应该不同（极小概率碰撞不测试）
-        val codeAt1 = GoogleAuthenticator.verify_code(key, 1L)
+        val codeAt1 = GoogleAuthenticator.verifyCode(key, 1L)
         assertNotEquals(codeAt0, codeAt1, "同一 key，但 t 不同，codeAt0 和 codeAt1 应不同")
     }
 

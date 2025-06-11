@@ -4,7 +4,7 @@ import io.kudos.base.lang.SystemKit
 import org.apache.commons.io.filefilter.TrueFileFilter
 import java.io.*
 import java.math.BigInteger
-import java.net.URL
+import java.net.URI
 import java.nio.file.Files
 import java.util.zip.CRC32
 import kotlin.test.*
@@ -287,7 +287,7 @@ internal class FileKitTest {
 
     @Test
     fun toFileWithNonFileURLReturnsNull() {
-        val httpUrl = URL("http://example.com")
+        val httpUrl = URI("https://example.com").toURL()
         assertNull(FileKit.toFile(httpUrl))
     }
 
@@ -314,7 +314,7 @@ internal class FileKitTest {
     fun toFilesWithHttpUrlThrowsIllegalArgumentException() {
         val f = File(tempDir, "fileY.txt").apply { createNewFile() }
         val validUrl = f.toURI().toURL()
-        val invalidHttpUrl = URL("http://example.com/foo.txt")
+        val invalidHttpUrl = URI("https://example.com/foo.txt").toURL()
         val arr = arrayOf(validUrl, invalidHttpUrl)
         // 因为第二个 URL 不是 file 协议，toFiles 会直接抛 IllegalArgumentException
         assertFailsWith<IllegalArgumentException> {
@@ -412,7 +412,7 @@ internal class FileKitTest {
 
     @Test
     fun copyURLToFileInvalidURLThrows() {
-        val invalid = URL("http://nonexistent.local/file.txt")
+        val invalid = URI("https://nonexistent.local/file.txt").toURL()
         val dest = File(tempDir, "bad.txt")
         assertFailsWith<IOException> {
             FileKit.copyURLToFile(invalid, dest)
@@ -565,7 +565,7 @@ internal class FileKitTest {
         val collected = mutableListOf<String>()
         it.use {
             while (it.hasNext()) {
-                collected.add(it.nextLine())
+                collected.add(it.next())
             }
         }
         assertEquals(listOf("a", "b", "c"), collected)

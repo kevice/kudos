@@ -37,11 +37,6 @@ class Criterion : Serializable {
     var encrypt = false
 
     /**
-     * 仅供反射创建实例使用
-     */
-    constructor() {}
-
-    /**
      * 封装查询条件
      *
      * @param property 要查询的属性名

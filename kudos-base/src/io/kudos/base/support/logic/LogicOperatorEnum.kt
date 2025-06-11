@@ -11,7 +11,7 @@ import java.util.*
  * @author K
  * @since 1.0.0
  */
-enum class LogicOperatorEnum constructor(
+enum class LogicOperatorEnum(
     override val code: String,
     override val trans: String,
     // 值是否可接受null

@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.constraint.validator
 
-import io.kudos.base.bean.validation.constraint.annotaions.DictCode
+import io.kudos.base.bean.validation.constraint.annotations.DictCode
 import io.kudos.base.bean.validation.teminal.convert.converter.IDictCodeFinder
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext

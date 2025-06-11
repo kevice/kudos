@@ -72,7 +72,7 @@ internal class SystemKitTest {
 
     @Test
     fun testLineSeparatorMatchesSystemProperty() {
-        assertEquals(System.getProperty("line.separator"), SystemKit.LINE_SEPARATOR)
+        assertEquals(System.lineSeparator(), SystemKit.LINE_SEPARATOR)
     }
 
     @Test
@@ -98,8 +98,7 @@ internal class SystemKitTest {
     @Test
     fun testIsDebugReturnsBoolean() {
         // 无法在运行时强制切换 debug 模式，只要返回 Boolean 即可
-        val flag = SystemKit.isDebug()
-        assertTrue(flag == true || flag == false)
+        SystemKit.isDebug()
     }
 
     @Test

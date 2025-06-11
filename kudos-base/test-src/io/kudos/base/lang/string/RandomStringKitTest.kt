@@ -228,13 +228,18 @@ internal class RandomStringKitTest {
             RandomStringKit.random(-1)
         }
         assertFailsWith<IllegalArgumentException> {
-            RandomStringKit.random(-5, true, true)
+            RandomStringKit.random(-5, letters = true, numbers = true)
         }
         assertFailsWith<IllegalArgumentException> {
-            RandomStringKit.random(-3, 0, 10, true, false)
+            RandomStringKit.random(-3, 0, 10, letters = true, numbers = false)
         }
         assertFailsWith<IllegalArgumentException> {
-            RandomStringKit.random(-2, 0, 5, true, false, charArrayOf('a', 'b'), SecureRandom())
+            RandomStringKit.random(-2, 0, 5,
+                letters = true,
+                numbers = false,
+                chars = charArrayOf('a', 'b'),
+                random = SecureRandom()
+            )
         }
         assertFailsWith<IllegalArgumentException> {
             RandomStringKit.random(-4, "pool")
@@ -248,7 +253,7 @@ internal class RandomStringKitTest {
     fun random_WithInvalidRange_ThrowsArrayIndexOutOfBounds() {
         // end <= start and no custom chars => should fail
         assertFailsWith<IllegalArgumentException> {
-            RandomStringKit.random(5, 10, 5, true, true)
+            RandomStringKit.random(5, 10, 5, letters = true, numbers = true)
         }
     }
 

@@ -46,7 +46,6 @@ object GenericKit {
             return getSuperClassGenricClass(clazz.getSuperClass()!!, index) // 往父类取
         }
 
-        if (args.isEmpty()) return Nothing::class
         if (index < 0 || index >= args.size) {
             throw IllegalArgumentException("输入的索引" + if (index < 0) "不能小于0" else "超出了参数的总数")
         }

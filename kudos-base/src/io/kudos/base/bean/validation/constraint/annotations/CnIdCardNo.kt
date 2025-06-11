@@ -1,31 +1,25 @@
-package io.kudos.base.bean.validation.constraint.annotaions
+package io.kudos.base.bean.validation.constraint.annotations
 
-import io.kudos.base.bean.validation.constraint.validator.CustomValidator
-import io.kudos.base.bean.validation.support.IBeanValidator
+import io.kudos.base.bean.validation.constraint.validator.CnIdCardNoValidator
 import jakarta.validation.Constraint
 import jakarta.validation.Payload
 import kotlin.reflect.KClass
 
 /**
- * 自定义约束注解，可以由用户自行实现校验逻辑，属性级别注解。被校验对象可以为任何类型。
+ * 中国(暂时只支持大陆)身证号码约束注解
  *
  * @author K
  * @since 1.0.0
  */
-@Constraint(validatedBy = [CustomValidator::class])
 @MustBeDocumented
+@Constraint(validatedBy = [CnIdCardNoValidator::class])
 @Retention(AnnotationRetention.RUNTIME)
-@Target(
-    AnnotationTarget.FUNCTION,
-    AnnotationTarget.PROPERTY_GETTER,
-    AnnotationTarget.PROPERTY_SETTER,
-    AnnotationTarget.VALUE_PARAMETER
-)
-annotation class Custom(
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
+annotation class CnIdCardNo(
     /**
-     * 执行逻辑校验的类
+     * 是否支持大陆15位身份证，false只支持18位
      */
-    val checkClass: KClass<out IBeanValidator<*>>,
+    val support15: Boolean = false,
     /**
      * 校验不通过时的提示，或其国际化key。
      * 每个约束定义中都包含有一个用于提示验证结果的消息模版, 并且在声明一个约束条件的时候,你可以通过这个约束中的message属性来重写默认的消息模版,
@@ -35,7 +29,7 @@ annotation class Custom(
      * 然后将占位符和这个文件中定义的resource进行匹配,如果匹配不成功的话,那么它会继续匹配Hibernate Validator自带的位于
      * /org/hibernate/validator/ValidationMessages.properties的ResourceBundle, 依次类推,递归的匹配所有的占位符.
      */
-    val message: String = "{io.kudos.base.bean.validation.constraint.annotaions.Custom.message}",
+    val message: String = "{io.kudos.base.bean.validation.constraint.annotations.CnIdCardNo.message}",
     /**
      * 该校验规则所从属的分组类，通过分组可以过滤校验规则或排序校验顺序。默认值必须是空数组。
      * 校验组能够让你在验证的时候选择应用哪些约束条件. 这样在某些情况下( 例如向导 ) 就可以对每一步进行校验的时候, 选取对应这步的那些约束条件进行验证了.
@@ -55,13 +49,4 @@ annotation class Custom(
      * 约束注解的有效负载(通常用来将一些元数据信息与该约束注解相关联，常用的一种情况是用负载表示验证结果的严重程度)
      */
     val payload: Array<KClass<out Payload>> = []
-) {
-    /**
-     * 多个Remote约束
-     * 使用该约束注解时，Bean Validation 将 Compare 数组里面的每一个元素都处理为一个普通的约束注解，并对其进行验证，所有约束条件均符合时才会验证通过
-     */
-    @MustBeDocumented
-    @Retention(AnnotationRetention.RUNTIME)
-    @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
-    annotation class List(vararg val value: Custom)
-}
+)

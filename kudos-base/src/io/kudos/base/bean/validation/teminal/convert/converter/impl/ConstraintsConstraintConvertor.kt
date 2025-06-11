@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.teminal.convert.converter.impl
 
-import io.kudos.base.bean.validation.constraint.annotaions.Constraints
+import io.kudos.base.bean.validation.constraint.annotations.Constraints
 import io.kudos.base.bean.validation.constraint.validator.ConstraintsValidator
 import io.kudos.base.support.logic.AndOrEnum
 
@@ -11,7 +11,7 @@ import io.kudos.base.support.logic.AndOrEnum
  * @author K
  * @since 1.0.0
  */
-class ConstraintsConstraintConvertor(annotation: Annotation) : DefaultConstaintConvertor(annotation) {
+class ConstraintsConstraintConvertor(annotation: Annotation) : DefaultConstraintConvertor(annotation) {
 
     override fun getRule(constraintAnnotation: Annotation): LinkedHashMap<String, Any> {
         val map = linkedMapOf<String, Any>()

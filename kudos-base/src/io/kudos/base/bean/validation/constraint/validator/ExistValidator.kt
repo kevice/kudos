@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.constraint.validator
 
-import io.kudos.base.bean.validation.constraint.annotaions.Exist
+import io.kudos.base.bean.validation.constraint.annotations.Exist
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext
 import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorContextImpl

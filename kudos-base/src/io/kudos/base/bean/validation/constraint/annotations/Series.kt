@@ -1,31 +1,45 @@
-package io.kudos.base.bean.validation.constraint.annotaions
+package io.kudos.base.bean.validation.constraint.annotations
 
-import io.kudos.base.bean.validation.constraint.validator.EachValidator
+import io.kudos.base.bean.validation.constraint.validator.SeriesValidator
+import io.kudos.base.bean.validation.support.SeriesTypeEnum
 import jakarta.validation.Constraint
 import jakarta.validation.Payload
 import kotlin.reflect.KClass
 
 /**
- * 对数组、Collection、Map的每一个元素应用Constraints约束，每一个元素都校验通过才算最终通过。
- * 如果是其他类型，直接对属性值应用Constraints约束。
- * Map时，Constraints约束将作用于其每一个value。
+ * 数列约束注解，属性级别。
+ * 用于验证List和Array，其元素类型支持Byte、Short、Int、BigInteger、Long、Float、Double、BigDecimal、String。
  *
  * @author K
  * @since 1.0.0
  */
-@Constraint(validatedBy = [EachValidator::class])
+@Constraint(validatedBy = [SeriesValidator::class])
 @MustBeDocumented
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
-annotation class Each(
+annotation class Series(
     /**
-     * 每个元素应用的组合约束
+     * 数列类型，默认为"递增且互不相等"
      */
-    val value: Constraints,
+    val type: SeriesTypeEnum = SeriesTypeEnum.INC_DIFF,
     /**
-     * 该属性对于本约束来说无意义，具体的提示信息由各子约束提供。由于是Validation框架的规范不能没有该属性，所以作过期处理以示提醒
+     * 步进绝对值，相邻两个元素不相同时的差值。不能为负数。对SeriesType.EQ无意义. 值为0.0表示不应用步进。
      */
-    @get:Deprecated("") val message: String = "永远不会提示",
+    val step: Double = 0.0,
+    /**
+     * 数列大小，仅当为正整数时才会生效。
+     */
+    val size: Int = 0,
+    /**
+     * 校验不通过时的提示，或其国际化key。
+     * 每个约束定义中都包含有一个用于提示验证结果的消息模版, 并且在声明一个约束条件的时候,你可以通过这个约束中的message属性来重写默认的消息模版,
+     * 如果在校验的时候,这个约束条件没有通过,那么你配置的MessageInterpolator会被用来当成解析器来解析这个约束中定义的消息模版,
+     * 从而得到最终的验证失败提示信息. 这个解析器会尝试解析模版中的占位符( 大括号括起来的字符串 ).
+     * 其中, Hibernate Validator中默认的解析器 (MessageInterpolator) 会先在类路径下找名称为ValidationMessages.properties的ResourceBundle,
+     * 然后将占位符和这个文件中定义的resource进行匹配,如果匹配不成功的话,那么它会继续匹配Hibernate Validator自带的位于
+     * /org/hibernate/validator/ValidationMessages.properties的ResourceBundle, 依次类推,递归的匹配所有的占位符.
+     */
+    val message: String = "{io.kudos.base.bean.validation.constraint.annotations.Series.message}",
     /**
      * 该校验规则所从属的分组类，通过分组可以过滤校验规则或排序校验顺序。默认值必须是空数组。
      * 校验组能够让你在验证的时候选择应用哪些约束条件. 这样在某些情况下( 例如向导 ) 就可以对每一步进行校验的时候, 选取对应这步的那些约束条件进行验证了.

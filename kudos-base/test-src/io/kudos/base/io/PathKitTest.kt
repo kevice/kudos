@@ -143,7 +143,7 @@ internal class PathKitTest {
         assert(File(PathKit.getResourcePath("logo.png")).exists())
 
         // testresources中
-        assert(File(PathKit.getResourcePath("TestExcelImporer.xls")).exists())
+        assert(File(PathKit.getResourcePath("TestExcelImporter.xls")).exists())
 
         // 目录
         assert(File(PathKit.getResourcePath("i18n")).exists())

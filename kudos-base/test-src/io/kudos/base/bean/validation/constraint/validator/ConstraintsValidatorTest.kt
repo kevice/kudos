@@ -1,15 +1,11 @@
 package io.kudos.base.bean.validation.constraint.validator
 
-import io.kudos.base.bean.validation.constraint.annotaions.Constraints
+import io.kudos.base.bean.validation.constraint.annotations.Constraints
 import io.kudos.base.bean.validation.kit.ValidationKit
-import io.kudos.base.support.logic.AndOrEnum
 import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Null
 import jakarta.validation.constraints.Pattern
 import org.hibernate.validator.constraints.Length
-import org.hibernate.validator.constraints.Range
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 /**
  * ConstraintsValidator测试用例

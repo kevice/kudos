@@ -9,7 +9,7 @@ import java.util.*
 
 /**
  * 国际化工具
- * 国际化propeties文件路径规范：i18n/类型/模块名_两位小写语言代码_两位大写国家代码.properties。
+ * 国际化properties文件路径规范：i18n/类型/模块名_两位小写语言代码_两位大写国家代码.properties。
  * 注意：国际化文件编码必须为UTF-8
  *
  * @author K
@@ -78,7 +78,7 @@ object I18nKit {
      * @since 1.0.0
      */
     fun getLocalStr(i18nKey: String, module: String, type: String, locale: String = defaultLocale): String {
-        var localeStr = if (!isSupport(locale)) {
+        val localeStr = if (!isSupport(locale)) {
             log.warn("不支持的Locale【${locale}】，按默认Locale【${defaultLocale}】处理！")
             defaultLocale
         } else locale
@@ -146,12 +146,15 @@ object I18nKit {
      * @since 1.0.0
      */
     @Synchronized
-    private fun bundle(file: String): ResourceBundle {
+    private fun bundle(file: String): ResourceBundle? {
         I18nKit::class.java.classLoader.getResourceAsStream(file).use { it ->
-            InputStreamReader(it, "UTF-8").use {
-                return PropertyResourceBundle(it)
+            if (it != null) {
+                InputStreamReader(it, "UTF-8").use {
+                    return PropertyResourceBundle(it)
+                }
             }
         }
+        return null
     }
 
     private fun initI18nByType(type: String, defaultLocale: String?, otherLocales: List<String?>, prefix: String) {
@@ -234,11 +237,10 @@ object I18nKit {
     /**
      * 资源文件按语言分组
      * @param resources
-     * @param lookup
      * @return
      */
     private fun resourceGroup(resources: Array<Resource>): Map<String, List<Resource>> {
-        return supportLocales.map {locale -> locale to resources.filter { it.filename.contains(locale) } }.toMap()
+        return supportLocales.associateWith { locale -> resources.filter { it.filename.contains(locale) } }
     }
 
     /**
@@ -254,11 +256,11 @@ object I18nKit {
         val moduleName = moduleAndLocale.first
         val bundle = bundle("$DEFAULT_BASE_PATH$type/${resource.filename}")
         val map = createMapByModule(moduleMap, moduleName)
-        bundle.keySet().forEach { map[it] = bundle.getString(it) }
+        bundle?.keySet()?.forEach { map[it] = bundle.getString(it) }
     }
 
     private fun getModuleAndLocale(resource: Resource): Pair<String, String> {
-        var baseName = resource.filename.substringBefore(".")
+        val baseName = resource.filename.substringBefore(".")
         val moduleName = baseName.substring(0, baseName.length - 5 + -1)
         val locale = baseName.right(5)!!
         return Pair(moduleName, locale)
@@ -300,7 +302,7 @@ object I18nKit {
                         if (!i18nMapDict[locale]!![module]!!.containsKey(dictType)) {
                             i18nMapDict[locale]!![module]!![dictType] = LinkedHashMap()
                         }
-                        if (dictTypeAndKey.size > 1 && allDicts[module] != null) {
+                        if (allDicts[module] != null) {
                             val realValue = allDicts[module]!![oneType]
                             i18nMapDict[locale]!![module]!![dictType]!![realKey] = realValue
                         } else {

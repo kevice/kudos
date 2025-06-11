@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.teminal.convert.converter.impl
 
-import io.kudos.base.bean.validation.constraint.annotaions.Exist
+import io.kudos.base.bean.validation.constraint.annotations.Exist
 import io.kudos.base.bean.validation.constraint.validator.ConstraintsValidator
 
 
@@ -10,7 +10,7 @@ import io.kudos.base.bean.validation.constraint.validator.ConstraintsValidator
  * @author K
  * @since 1.0.0
  */
-class ExistConstraintConvertor(annotation: Annotation) : DefaultConstaintConvertor(annotation) {
+class ExistConstraintConvertor(annotation: Annotation) : DefaultConstraintConvertor(annotation) {
 
     override fun getRule(constraintAnnotation: Annotation): LinkedHashMap<String, Any> {
         val map = linkedMapOf<String, Any>()

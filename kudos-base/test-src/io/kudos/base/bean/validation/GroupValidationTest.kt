@@ -32,7 +32,7 @@ internal class GroupValidationTest {
         val bean1 = TestFilterGroupBean(null, null)
         val violations1 = ValidationKit.validateBean(bean1)
         assertEquals("name不能为null", violations1.first().message)
-        //// 有@GroupSequece，即使明确传入Default::class也无效（@GroupSequece优先级较高）
+        //// 有@GroupSequece，即使明确传入Default::class也无效（@GroupSequence优先级较高）
         val violations2 = ValidationKit.validateBean(bean1, Default::class)
         assertEquals("name不能为null", violations2.first().message)
     }
@@ -43,7 +43,7 @@ internal class GroupValidationTest {
     @Test
     fun testDefaultOrderSameGroupBean() {
         // 一个属性上的约束校验是无序的
-        var msgSet = mutableSetOf<String>()
+        val msgSet = mutableSetOf<String>()
         for (i in 1 until 100) {
             val bean = TestValidateOrderSameGroupBean("123", "456", 61)
             val violations = ValidationKit.validateProperty(bean, "name", failFast = false)

@@ -183,24 +183,24 @@ object IpKit {
         if (beginIpStr.isEmpty()) {
             beginIpStr = "0.0.0.0"
         }
-        var longBeginip = ipv4StringToLong(beginIpStr)
-        if (longBeginip == -1L) {
+        var longBeginIp = ipv4StringToLong(beginIpStr)
+        if (longBeginIp == -1L) {
             return emptyList()
         }
         if (endIpStr.isEmpty()) {
             endIpStr = "255.255.255.255"
         }
-        var longEndip = ipv4StringToLong(endIpStr)
-        if (longEndip == -1L) {
+        var longEndIp = ipv4StringToLong(endIpStr)
+        if (longEndIp == -1L) {
             return emptyList()
         }
-        if (longBeginip > longEndip) {
-            val temp = longBeginip
-            longBeginip = longEndip
-            longEndip = temp
+        if (longBeginIp > longEndIp) {
+            val temp = longBeginIp
+            longBeginIp = longEndIp
+            longEndIp = temp
         }
         // 求解范围之内的IP地址
-        val size = (longEndip - longBeginip).toInt() + 1
+        val size = (longEndIp - longBeginIp).toInt() + 1
         if (size > 65536 || size < 0) {
             return emptyList()
         } else if (size == 1) {
@@ -208,7 +208,7 @@ object IpKit {
         }
         val longIps = LongArray(size)
         for (k in 0 until size) {
-            longIps[k] = longBeginip + k.toLong()
+            longIps[k] = longBeginIp + k.toLong()
         }
         // 各个段装换成字符串
         val strip = arrayOfNulls<String>(4)

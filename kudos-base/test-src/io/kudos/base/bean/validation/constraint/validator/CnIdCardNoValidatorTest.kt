@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.constraint.validator
 
-import io.kudos.base.bean.validation.constraint.annotaions.CnIdCardNo
+import io.kudos.base.bean.validation.constraint.annotations.CnIdCardNo
 import io.kudos.base.bean.validation.kit.ValidationKit
 import kotlin.test.Test
 

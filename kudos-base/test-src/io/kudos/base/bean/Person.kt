@@ -58,13 +58,13 @@ class Person : IIdEntity<String>, ITreeNode<String?> {
     override fun hashCode(): Int {
         val prime = 31
         var result = 1
-        result = prime * result + if (address == null) 0 else address.hashCode()
+        result = prime * result + (address?.hashCode() ?: 0)
         result = prime * result + age
-        result = prime * result + if (birthday == null) 0 else birthday.hashCode()
-        result = prime * result + if (contact == null) 0 else contact.hashCode()
-        result = prime * result + if (goods == null) 0 else goods.hashCode()
-        result = prime * result + if (name == null) 0 else name.hashCode()
-        result = prime * result + if (sex == null) 0 else sex.hashCode()
+        result = prime * result + (birthday?.hashCode() ?: 0)
+        result = prime * result + (contact?.hashCode() ?: 0)
+        result = prime * result + (goods?.hashCode() ?: 0)
+        result = prime * result + (name?.hashCode() ?: 0)
+        result = prime * result + (sex?.hashCode() ?: 0)
         return result
     }
 

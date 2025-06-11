@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.constraint.validator
 
-import io.kudos.base.bean.validation.constraint.annotaions.Series
+import io.kudos.base.bean.validation.constraint.annotations.Series
 import io.kudos.base.bean.validation.kit.ValidationKit
 import io.kudos.base.bean.validation.support.SeriesTypeEnum
 import java.math.BigDecimal

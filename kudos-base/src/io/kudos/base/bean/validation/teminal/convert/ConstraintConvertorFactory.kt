@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.teminal.convert
 
-import io.kudos.base.bean.validation.constraint.annotaions.*
+import io.kudos.base.bean.validation.constraint.annotations.*
 import io.kudos.base.bean.validation.teminal.convert.converter.IConstraintConvertor
 import io.kudos.base.bean.validation.teminal.convert.converter.impl.*
 
@@ -31,7 +31,7 @@ object ConstraintConvertorFactory {
             Exist::class -> ExistConstraintConvertor(annotation)
             Constraints::class -> ConstraintsConstraintConvertor(annotation)
             Remote::class -> RemoteConstraintConvertor(annotation)
-            else -> DefaultConstaintConvertor(annotation)
+            else -> DefaultConstraintConvertor(annotation)
         } as IConstraintConvertor?
 
 }

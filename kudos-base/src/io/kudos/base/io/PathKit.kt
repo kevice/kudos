@@ -32,9 +32,9 @@ object PathKit {
             return ""
         }
         val path = try {
-            val classNmae = """${c.simpleName}.class"""
-            val thisClass = c.getResource(classNmae).path
-            thisClass.replace(classNmae, "")
+            val className = """${c.simpleName}.class"""
+            val thisClass = c.getResource(className)!!.path
+            thisClass.replace(className, "")
         } catch (e: Exception) {
             c.protectionDomain.codeSource.location.path
         }
@@ -94,7 +94,7 @@ object PathKit {
         if (baseDir == file) {
             return ""
         }
-        var templateFile = if (baseDir.parentFile == null) {
+        val templateFile = if (baseDir.parentFile == null) {
             file.absolutePath.substring(baseDir.absolutePath.length)
         } else {
             file.absolutePath.substring(baseDir.absolutePath.length + 1)

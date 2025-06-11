@@ -179,7 +179,7 @@
       }
     ]
   },
-  "greduateDate": {
+  "graduateDate": {
     "Past": [
       {
         "message": "{javax.validation.constraints.Past.message}"
@@ -226,7 +226,7 @@
             "18"
           ]
         },
-        "message": "{io.kudos.base.bean.validation.constraint.annotaions.NotNullOn.message}"
+        "message": "{io.kudos.base.bean.validation.constraint.annotations.NotNullOn.message}"
       }
     ]
   },
@@ -435,7 +435,7 @@
       }
     ]
   },
-  "weigth": {
+  "weight": {
     "DecimalMin": [
       {
         "value": "50.0",

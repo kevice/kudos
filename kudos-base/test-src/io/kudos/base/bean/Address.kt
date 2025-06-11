@@ -19,10 +19,10 @@ class Address : Serializable {
     override fun hashCode(): Int {
         val prime = 31
         var result = 1
-        result = prime * result + if (city == null) 0 else city.hashCode()
-        result = prime * result + if (province == null) 0 else province.hashCode()
-        result = prime * result + if (street == null) 0 else street.hashCode()
-        result = prime * result + if (zipcode == null) 0 else zipcode.hashCode()
+        result = prime * result + (city?.hashCode() ?: 0)
+        result = prime * result + (province?.hashCode() ?: 0)
+        result = prime * result + (street?.hashCode() ?: 0)
+        result = prime * result + (zipcode?.hashCode() ?: 0)
         return result
     }
 

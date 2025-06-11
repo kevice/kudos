@@ -61,20 +61,20 @@ object NetworkKit {
 
         val reader = BufferedReader(InputStreamReader(myProc.inputStream))
         val macPattern = Pattern.compile(".*($macRegExp).*")
-        var macMtch: Matcher?
+        var macMatcher: Matcher?
 
         while (reader.readLine().also { currentLine = it } != null) {
             if (currentLine != null) {
                 println("Current line: $currentLine") // Debugging line content
-                macMtch = macPattern.matcher(currentLine)
-                if (macMtch.matches()) {
+                macMatcher = macPattern.matcher(currentLine)
+                if (macMatcher.matches()) {
                     // Capture the matching MAC address
-                    val macAddress = macMtch.group(1)
+                    val macAddress = macMatcher.group(1)
                     if (!macAddress.isNullOrEmpty()) {
                         macs.add(macAddress)
                         println("MAC address found: $macAddress") // Debugging found MAC address
                     }
-                    macMtch.reset()
+                    macMatcher.reset()
                 }
             }
         }

@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.teminal.convert.converter.impl
 
-import io.kudos.base.bean.validation.constraint.annotaions.NotNullOn
+import io.kudos.base.bean.validation.constraint.annotations.NotNullOn
 
 
 /**
@@ -9,7 +9,7 @@ import io.kudos.base.bean.validation.constraint.annotaions.NotNullOn
  * @author K
  * @since 1.0.0
  */
-class NotNullOnConstraintConvertor(annotation: Annotation) : DefaultConstaintConvertor(annotation) {
+class NotNullOnConstraintConvertor(annotation: Annotation) : DefaultConstraintConvertor(annotation) {
 
     override fun getRule(constraintAnnotation: Annotation): LinkedHashMap<String, Any> {
         val map = super.getRule(constraintAnnotation)

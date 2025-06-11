@@ -59,7 +59,6 @@ fun Boolean.toStringOnOff(): String = if (this) "on" else "off"
  * false.toStringTrueFalse() = "no"
  * </pre>
  *
- * @param bool 要转化的Boolean
  * @return `'yes'`, `'no'`
  * @author K
  * @since 1.0.0

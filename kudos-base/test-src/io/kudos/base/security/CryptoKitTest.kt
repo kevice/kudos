@@ -130,7 +130,7 @@ internal class CryptoKitTest {
         // aesEncrypt(input) adds PREFIX before the hex
         val cipherWithPrefix = CryptoKit.aesEncrypt(plaintext)
         assertTrue(cipherWithPrefix.startsWith("┼"), "aesEncrypt(input) should prepend the special PREFIX '┼'")
-        val withoutPrefix = cipherWithPrefix.removePrefix("┼")
+        cipherWithPrefix.removePrefix("┼")
 
         // Decrypt via aesDecrypt(fullString)
         val roundTrip = CryptoKit.aesDecrypt(cipherWithPrefix)

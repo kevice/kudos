@@ -1,27 +1,26 @@
-package io.kudos.base.bean.validation.constraint.annotaions
+package io.kudos.base.bean.validation.constraint.annotations
 
-import io.kudos.base.bean.validation.constraint.validator.ExistValidator
+import io.kudos.base.bean.validation.constraint.validator.DictEnumCodeValidator
+import io.kudos.base.enums.ienums.IDictEnum
 import jakarta.validation.Constraint
 import jakarta.validation.Payload
 import kotlin.reflect.KClass
 
 /**
- * 对数组、Collection、Map的每一个元素应用Constraints约束，只要一个元素Constraints约束校验通过就算通过。跟Each约束相对。
- * 如果是其他类型，直接对属性值应用Constraints约束。
- * Map时，Constraints约束将作用于其每一个value。
+ * 字典枚举代码约束注解，属性级别注解。用于校验字符串是否为指定字典枚举类中某个枚举的代码。
  *
  * @author K
  * @since 1.0.0
  */
-@Constraint(validatedBy = [ExistValidator::class])
+@Constraint(validatedBy = [DictEnumCodeValidator::class])
 @MustBeDocumented
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
-annotation class Exist(
+annotation class DictEnumCode(
     /**
-     * 每个元素应用的组合约束
+     * 字典枚举类
      */
-    val value: Constraints,
+    val enumClass: KClass<out IDictEnum>,
     /**
      * 校验不通过时的提示，或其国际化key。
      * 每个约束定义中都包含有一个用于提示验证结果的消息模版, 并且在声明一个约束条件的时候,你可以通过这个约束中的message属性来重写默认的消息模版,
@@ -31,7 +30,7 @@ annotation class Exist(
      * 然后将占位符和这个文件中定义的resource进行匹配,如果匹配不成功的话,那么它会继续匹配Hibernate Validator自带的位于
      * /org/hibernate/validator/ValidationMessages.properties的ResourceBundle, 依次类推,递归的匹配所有的占位符.
      */
-    val message: String = "io.kudos.base.bean.validation.constraint.annotaions.Any.message",
+    val message: String = "{io.kudos.base.bean.validation.constraint.annotations.DictEnumCode.message}",
     /**
      * 该校验规则所从属的分组类，通过分组可以过滤校验规则或排序校验顺序。默认值必须是空数组。
      * 校验组能够让你在验证的时候选择应用哪些约束条件. 这样在某些情况下( 例如向导 ) 就可以对每一步进行校验的时候, 选取对应这步的那些约束条件进行验证了.

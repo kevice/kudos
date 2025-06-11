@@ -101,7 +101,7 @@ internal class EnumKitTest {
         }
     }
 
-    internal enum class TimeUnit(val codeStr: String, var transStr: String) : IDictEnum {
+    internal enum class TimeUnit(codeStr: String, var transStr: String) : IDictEnum {
         YEAR("1", "年"),
         MONTH("2", "月"),
         WEEK("3", "周"),
@@ -118,7 +118,7 @@ internal class EnumKitTest {
 
         companion object {
             fun initTrans(map: Map<String?, String?>) {
-                val values: Array<TimeUnit> = TimeUnit.values()
+                val values: Array<TimeUnit> = entries.toTypedArray()
                 for (timeUnit in values) {
                     timeUnit.transStr = map[timeUnit.code]!!
                 }

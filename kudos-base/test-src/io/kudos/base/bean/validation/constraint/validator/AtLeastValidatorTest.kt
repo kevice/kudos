@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.constraint.validator
 
-import io.kudos.base.bean.validation.constraint.annotaions.AtLeast
+import io.kudos.base.bean.validation.constraint.annotations.AtLeast
 import io.kudos.base.bean.validation.kit.ValidationKit
 import jakarta.validation.ValidationException
 import kotlin.test.Test

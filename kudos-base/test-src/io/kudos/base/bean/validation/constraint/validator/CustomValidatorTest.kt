@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.constraint.validator
 
-import io.kudos.base.bean.validation.constraint.annotaions.Custom
+import io.kudos.base.bean.validation.constraint.annotations.Custom
 import io.kudos.base.bean.validation.kit.ValidationKit
 import io.kudos.base.bean.validation.support.IBeanValidator
 import org.junit.jupiter.api.Assertions.assertFalse

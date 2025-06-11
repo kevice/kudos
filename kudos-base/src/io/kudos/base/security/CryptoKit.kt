@@ -43,7 +43,7 @@ object CryptoKit {
 
     private val random = SecureRandom()
 
-    //-- HMAC-SHA1 funciton --//
+    //-- HMAC-SHA1 function --//
     /**
      * 使用HMAC-SHA1进行消息签名, 返回字节数组,长度为20字节
      *

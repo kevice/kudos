@@ -17,7 +17,7 @@ internal class QrCodeKitTest {
     @Disabled("无GUI的环境下跑不了")
     fun genQrCode() {
         val logoImagePath = "${PathKit.getProjectRootPath()}/resources/logo.png"
-        val bufferedImage = QrCodeKit.genQrCode("http://www.baidu.com", logoImagePath)
+        val bufferedImage = QrCodeKit.genQrCode("https://www.baidu.com", logoImagePath)
         ImageKit.showImage(bufferedImage)
         Thread.sleep(3000)
     }

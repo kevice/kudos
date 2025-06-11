@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.constraint.validator
 
-import io.kudos.base.bean.validation.constraint.annotaions.DateTime
+import io.kudos.base.bean.validation.constraint.annotations.DateTime
 import io.kudos.base.bean.validation.kit.ValidationKit
 import kotlin.test.Test
 import kotlin.test.assertEquals

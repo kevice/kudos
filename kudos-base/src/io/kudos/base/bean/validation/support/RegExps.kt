@@ -35,7 +35,7 @@ object RegExps {
     /**
      * url地址
      */
-    val URL = (("^(https?|s?ftp):\\/\\/(((([A-Za-z]|\\d|-|\\.|_|~|"
+    const val URL = (("^(https?|s?ftp):\\/\\/(((([A-Za-z]|\\d|-|\\.|_|~|"
             + "[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])|(%[\\da-f]{2})|[!\\$&'\\(\\)\\*\\+,;=]|:)*@)?(((\\d|"
             + "[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d|[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d|[1-9]\\d|1\\d\\d|"
             + "2[0-4]\\d|25[0-5])\\.(\\d|[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-5]))|((([A-Za-z]|\\d|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])|"
@@ -61,14 +61,14 @@ object RegExps {
     /**
      * 真实姓名 英文名、字母、空格、分隔圆点、英文句号；中文名：中文、分隔圆点 不能纯数; 日文名
      */
-    val REALNAME = ("^[a-zA-Z\\u0020\\u4E00-\\u9FA5\\u0800-\\u4e00\\*]"
+    const val REALNAME = ("^[a-zA-Z\\u0020\\u4E00-\\u9FA5\\u0800-\\u4e00\\*]"
             + "[a-zA-Z0-9\\u0020\\u4E00-\\u9FA5\\u0800-\\u4e00\\·\\.\\* ]{0,28}"
             + "[a-zA-Z\\u0020\\u4E00-\\u9FA5\\u0800-\\u4e00\\*]$")
 
     /**
      * 银行账户中姓名校验
      */
-    val BANKNAME = ("^[a-zA-Z\\u4E00-\\u9FA5\\u0800-\\u4e00\\*]"
+    const val BANKNAME = ("^[a-zA-Z\\u4E00-\\u9FA5\\u0800-\\u4e00\\*]"
             + "[a-zA-Z0-9\\u4E00-\\u9FA5\\u0800-\\u4e00\\·\\.()（）\\* ]{0,28}"
             + "[a-zA-Z\\u4E00-\\u9FA5\\u0800-\\u4e00\\*()（）]$")
 
@@ -164,7 +164,7 @@ object RegExps {
     /**
      * MSN 修改为和邮箱相同的规则
      */
-    val MSN = EMAIL
+    const val MSN = EMAIL
 
     /*密码强度*/
     const val PASSWORD_LEVEL_1 = "^[a-zA-Z]+$"

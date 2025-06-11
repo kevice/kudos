@@ -126,11 +126,13 @@ object EnumKit {
         require(!enumClassStr.isBlank()) { "enumClass参数不能为空！" }
         val enumClazz = try {
             Class.forName(enumClassStr)
-        } catch (e: ClassNotFoundException) {
+        } catch (_: ClassNotFoundException) {
             throw IllegalArgumentException("类【${enumClassStr}】不存在！")
         }
         require(enumClazz.isEnum) { "类【${enumClassStr}】不是枚举！" }
         require(IDictEnum::class.java.isAssignableFrom(enumClazz)) { "类【${enumClassStr}】没有实现【${IDictEnum::class}】接口！" }
+
+        @Suppress("UNCHECKED_CAST")
         return enumClazz.kotlin as KClass<out IDictEnum>
     }
 
@@ -162,7 +164,7 @@ object EnumKit {
 
     /**
      * 检查指定是名字是否为指定的枚举类的有效枚举元素
-     * 该方法[Enum.valueOf]不同，当枚举名无效时它不会抛出异常。
+     * 该方法與enum的valueOf方法不同，当枚举名无效时它不会抛出异常。
      *
      * @param E 枚举类型
      * @param enumClass  待查找的枚举类
@@ -176,7 +178,7 @@ object EnumKit {
 
     /**
      * 根据枚举元素名称获取对应的枚举元素，如果没找到返回null
-     * 该方法[Enum.valueOf]不同，当枚举名无效时它不会抛出异常。
+     * 该方法與enum的valueOf方法不同，当枚举名无效时它不会抛出异常。
      *
      * @param E 枚举类型
      * @param enumClass  待查找的枚举类

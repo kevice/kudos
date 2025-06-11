@@ -15,7 +15,7 @@ import kotlin.experimental.and
  * @since 1.0.0
  */
 class GoogleAuthenticator {
-    var window_size = 3 // default 3 - max 17 (from google docs)最多可偏移的时间
+    var windowSize = 3 // default 3 - max 17 (from google docs)最多可偏移的时间
 
     /**
      * set the windows size. This is an integer value representing the number of 30 second windows
@@ -25,7 +25,7 @@ class GoogleAuthenticator {
      */
     fun setWindowSize(s: Int) {
         if (s in 1..17) {
-            window_size = s
+            windowSize = s
         }
     }
 
@@ -36,7 +36,7 @@ class GoogleAuthenticator {
      * @param timeMsec The time in msec (System.currentTimeMillis() for example)
      * @return
      */
-    fun check_code(secret: String, code: Long, timeMsec: Long): Boolean {
+    fun checkCode(secret: String, code: Long, timeMsec: Long): Boolean {
         val codec = Base32()
         val decodedKey = codec.decode(secret)
         // convert unix msec time into a 30 second "window"
@@ -44,10 +44,9 @@ class GoogleAuthenticator {
         val t = timeMsec / 1000L / 30L
         // Window is used to check codes generated in the near past.
         // You can use this value to tune how far you're willing to go.
-        for (i in -window_size..window_size) {
-            var hash: Long
-            hash = try {
-                verify_code(decodedKey, t + i).toLong()
+        for (i in -windowSize..windowSize) {
+            val hash: Long = try {
+                verifyCode(decodedKey, t + i).toLong()
             } catch (e: Exception) {
                 // Yes, this is bad form - but
                 // the exceptions thrown would be rare and a static configuration problem
@@ -107,7 +106,7 @@ class GoogleAuthenticator {
         }
 
         @Throws(NoSuchAlgorithmException::class, InvalidKeyException::class)
-        internal fun verify_code(key: ByteArray, t: Long): Int {
+        internal fun verifyCode(key: ByteArray, t: Long): Int {
             val data = ByteArray(8)
             var value = t
             run {

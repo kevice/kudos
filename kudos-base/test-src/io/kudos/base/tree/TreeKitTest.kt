@@ -41,11 +41,11 @@ internal class TreeKitTest {
     fun depthTraverse() {
         val rootNode00 = TestTreeNode("00", null, "根结点10")
         val node11 = TestTreeNode("11", "00", "00的子结点11")
-        rootNode00.childern.add(node11)
+        rootNode00.children.add(node11)
         val node21 = TestTreeNode("21", "11", "11的子结点21")
-        node11.childern.add(node21)
+        node11.children.add(node21)
         val node12 = TestTreeNode("12", "00", "00的子结点12")
-        rootNode00.childern.add(node12)
+        rootNode00.children.add(node12)
 
         val sb = StringBuilder()
         TreeKit.depthTraverse(rootNode00) {

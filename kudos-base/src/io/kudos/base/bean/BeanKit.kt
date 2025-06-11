@@ -180,7 +180,7 @@ object BeanKit {
      * @author K
      * @since 1.0.0
      */
-    @Suppress(Consts.Suppress.UNCHECKED_CAST)
+    @Suppress("UNCHECKED_CAST")
     fun <T> shallowClone(bean: T): T = BeanUtils.cloneBean(bean) as T
 
 //    /**

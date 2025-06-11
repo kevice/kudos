@@ -28,7 +28,7 @@ internal class IdCardNoKitTest {
     private val TW_F = "T240298298"
 
     @Test
-    fun conver15CardTo18() {
+    fun convert15CardTo18() {
         assertEquals(MAIN_F_18, IdCardNoKit.convert15To18(MAIN_F_15))
         assertNull(IdCardNoKit.convert15To18(""))
         assertNull(IdCardNoKit.convert15To18(MAIN_F_18))

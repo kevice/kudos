@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.teminal
 
-import io.kudos.base.bean.validation.constraint.annotaions.*
+import io.kudos.base.bean.validation.constraint.annotations.*
 import io.kudos.base.bean.validation.support.Depends
 import io.kudos.base.bean.validation.support.IBeanValidator
 import io.kudos.base.bean.validation.support.RegExps
@@ -9,41 +9,8 @@ import io.kudos.base.data.json.JsonKit
 import io.kudos.base.enums.impl.SexEnum
 import io.kudos.base.support.logic.LogicOperatorEnum
 import jakarta.validation.Valid
-import jakarta.validation.constraints.AssertFalse
-import jakarta.validation.constraints.AssertTrue
-import jakarta.validation.constraints.DecimalMax
-import jakarta.validation.constraints.DecimalMin
-import jakarta.validation.constraints.Digits
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.Future
-import jakarta.validation.constraints.FutureOrPresent
-import jakarta.validation.constraints.Max
-import jakarta.validation.constraints.Min
-import jakarta.validation.constraints.Negative
-import jakarta.validation.constraints.NegativeOrZero
-import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.NotEmpty
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Null
-import jakarta.validation.constraints.Past
-import jakarta.validation.constraints.PastOrPresent
-import jakarta.validation.constraints.Pattern
-import jakarta.validation.constraints.Positive
-import jakarta.validation.constraints.PositiveOrZero
-import jakarta.validation.constraints.Size
-import org.hibernate.validator.constraints.CodePointLength
-import org.hibernate.validator.constraints.CreditCardNumber
-import org.hibernate.validator.constraints.Currency
-import org.hibernate.validator.constraints.EAN
-import org.hibernate.validator.constraints.ISBN
-import org.hibernate.validator.constraints.Length
-import org.hibernate.validator.constraints.LuhnCheck
-import org.hibernate.validator.constraints.Mod10Check
-import org.hibernate.validator.constraints.Mod11Check
-import org.hibernate.validator.constraints.ParameterScriptAssert
-import org.hibernate.validator.constraints.Range
-import org.hibernate.validator.constraints.URL
-import org.hibernate.validator.constraints.UniqueElements
+import jakarta.validation.constraints.*
+import org.hibernate.validator.constraints.*
 import org.hibernate.validator.constraints.time.DurationMax
 import org.hibernate.validator.constraints.time.DurationMin
 import java.time.Duration
@@ -116,7 +83,7 @@ internal class TeminalConstraintsCreatorTest {
         val age: Int?,
 
         @get:Past
-        val greduateDate: LocalDate?,
+        val graduateDate: LocalDate?,
 
         @get:Future
         val expireDate: LocalDate?,
@@ -135,7 +102,7 @@ internal class TeminalConstraintsCreatorTest {
 
         @get:DecimalMin("50.0", message = "体重必须大于50.0KG")
         @get:DecimalMax("100.0", message = "体重必须小于100.0KG")
-        val weigth: Double?,
+        val weight: Double?,
 
         @get:Range(min = 30, max = 270, message = "身高值必须在30cm到270cm之间")
         val height: Double?,

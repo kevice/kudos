@@ -1,6 +1,6 @@
 package io.kudos.base.bean.validation.constraint.validator
 
-import io.kudos.base.bean.validation.constraint.annotaions.DictEnumCode
+import io.kudos.base.bean.validation.constraint.annotations.DictEnumCode
 import io.kudos.base.bean.validation.kit.ValidationKit
 import io.kudos.base.enums.ienums.IDictEnum
 import kotlin.test.Test

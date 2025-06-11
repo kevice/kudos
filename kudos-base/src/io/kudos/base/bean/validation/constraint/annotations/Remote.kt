@@ -1,26 +1,32 @@
-package io.kudos.base.bean.validation.constraint.annotaions
+package io.kudos.base.bean.validation.constraint.annotations
 
-import io.kudos.base.bean.validation.constraint.validator.DictEnumCodeValidator
-import io.kudos.base.enums.ienums.IDictEnum
+import io.kudos.base.bean.validation.constraint.validator.RemoteValidator
+import io.kudos.base.bean.validation.support.IBeanValidator
 import jakarta.validation.Constraint
 import jakarta.validation.Payload
 import kotlin.reflect.KClass
 
 /**
- * 字典枚举代码约束注解，属性级别注解。用于校验字符串是否为指定字典枚举类中某个枚举的代码。
+ * 远程约束注解，由终端向服务端发起校验请求，在服务端可以由用户自行实现校验逻辑，属性级别注解。
  *
  * @author K
  * @since 1.0.0
  */
-@Constraint(validatedBy = [DictEnumCodeValidator::class])
+@Constraint(validatedBy = [RemoteValidator::class])
 @MustBeDocumented
 @Retention(AnnotationRetention.RUNTIME)
-@Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
-annotation class DictEnumCode(
+@Target(
+    AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER
+)
+annotation class Remote(
     /**
-     * 字典枚举类
+     * 执行逻辑校验的类
      */
-    val enumClass: KClass<out IDictEnum>,
+    val checkClass: KClass<out IBeanValidator<*>>,
+    /**
+     * 校验请求url
+     */
+    val requestUrl: String,
     /**
      * 校验不通过时的提示，或其国际化key。
      * 每个约束定义中都包含有一个用于提示验证结果的消息模版, 并且在声明一个约束条件的时候,你可以通过这个约束中的message属性来重写默认的消息模版,
@@ -30,7 +36,7 @@ annotation class DictEnumCode(
      * 然后将占位符和这个文件中定义的resource进行匹配,如果匹配不成功的话,那么它会继续匹配Hibernate Validator自带的位于
      * /org/hibernate/validator/ValidationMessages.properties的ResourceBundle, 依次类推,递归的匹配所有的占位符.
      */
-    val message: String = "{io.kudos.base.bean.validation.constraint.annotaions.DictEnumCode.message}",
+    val message: String = "{io.kudos.base.bean.validation.constraint.annotations.Remote.message}",
     /**
      * 该校验规则所从属的分组类，通过分组可以过滤校验规则或排序校验顺序。默认值必须是空数组。
      * 校验组能够让你在验证的时候选择应用哪些约束条件. 这样在某些情况下( 例如向导 ) 就可以对每一步进行校验的时候, 选取对应这步的那些约束条件进行验证了.
@@ -50,4 +56,13 @@ annotation class DictEnumCode(
      * 约束注解的有效负载(通常用来将一些元数据信息与该约束注解相关联，常用的一种情况是用负载表示验证结果的严重程度)
      */
     val payload: Array<KClass<out Payload>> = []
-)
+) {
+    /**
+     * 多个Remote约束
+     * 使用该约束注解时，Bean Validation 将 Compare 数组里面的每一个元素都处理为一个普通的约束注解，并对其进行验证，所有约束条件均符合时才会验证通过
+     */
+    @MustBeDocumented
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
+    annotation class List(vararg val value: Remote)
+}

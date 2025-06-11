@@ -124,16 +124,16 @@ class PropertiesLoader {
     private fun loadProperties(vararg resourcesPaths: String): Properties {
         val props = Properties()
         for (location in resourcesPaths) {
-            LOG.debug("Loading properties file from:$location")
+            log.debug("Loading properties file from:$location")
             try {
                 javaClass.getResourceAsStream(location).use { props.load(it) }
             } catch (ex: IOException) {
-                LOG.debug("Could not load properties from path:$location, ${ex.message}")
+                log.debug("Could not load properties from path:$location, ${ex.message}")
             }
         }
         return props
     }
 
-    private val LOG = LogFactory.getLog(this)
+    private val log = LogFactory.getLog(this)
 
 }

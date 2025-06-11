@@ -25,7 +25,7 @@ class FtpClientKit {
      * @param password  FTP登录密码
      * @param pathname  FTP服务器文件目录
      * @param filename  文件名称
-     * @param localpath 下载后的文件路径
+     * @param localPath 下载后的文件路径
      * @return 是否下载成功
      * @author K
      * @since 1.0.0
@@ -37,10 +37,10 @@ class FtpClientKit {
         password: String,
         pathname: String,
         filename: String,
-        localpath: String
+        localPath: String
     ): Boolean {
         var flag = false
-        val ftpClient: FTPClient = FTPClient()
+        val ftpClient = FTPClient()
         try {
             //连接FTP服务器
             ftpClient.connect(hostname, port)
@@ -56,7 +56,7 @@ class FtpClientKit {
             val ftpFiles = ftpClient.listFiles()
             for (file in ftpFiles) {
                 if (filename.equals(file.name, ignoreCase = true)) {
-                    val localFile = File("$localpath/${file.name}")
+                    val localFile = File("$localPath/${file.name}")
                     val os: OutputStream = FileOutputStream(localFile)
                     ftpClient.retrieveFile(file.name, os)
                     os.close()

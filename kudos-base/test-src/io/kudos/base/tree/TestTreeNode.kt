@@ -13,7 +13,7 @@ internal class TestTreeNode : ITreeNode<String> {
         private set
     var name: String? = null
         private set
-    var childern = mutableListOf<ITreeNode<String>>()
+    var children = mutableListOf<ITreeNode<String>>()
 
     constructor(id: String, parentId: String?, name: String?) : super() {
         this.id = id
@@ -30,7 +30,7 @@ internal class TestTreeNode : ITreeNode<String> {
     override fun _getParentId(): String? = parentId
 
     override fun _getChildren(): MutableList<ITreeNode<String>> {
-        return childern
+        return children
     }
 
 }

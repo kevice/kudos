@@ -1,25 +1,31 @@
-package io.kudos.base.bean.validation.constraint.annotaions
+package io.kudos.base.bean.validation.constraint.annotations
 
-import io.kudos.base.bean.validation.constraint.validator.CnIdCardNoValidator
+import io.kudos.base.bean.validation.constraint.validator.NotNullOnValidator
+import io.kudos.base.bean.validation.support.Depends
 import jakarta.validation.Constraint
 import jakarta.validation.Payload
 import kotlin.reflect.KClass
 
 /**
- * 中国(暂时只支持大陆)身证号码约束注解
+ * 非null依赖约束注解，属性级别注解。
+ *
+ *
+ * 当前属性的值是否可以为null，取决于定义的表达式。表达式为false，属性值可为null，即非必填项；表达式为true，属性值必填。
+ * 注意：此约束注解不可与 @NotNull 一起使用
+ * 注意：不可类似地实现如 NotEmptyOn 和 NotBlankOn 约束注解。NotNullOn之所以可行是因为各约束注解在校验时值为null都返回true。
  *
  * @author K
  * @since 1.0.0
  */
+@Constraint(validatedBy = [NotNullOnValidator::class])
 @MustBeDocumented
-@Constraint(validatedBy = [CnIdCardNoValidator::class])
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
-annotation class CnIdCardNo(
+annotation class NotNullOn(
     /**
-     * 是否支持大陆15位身份证，false只支持18位
+     * NotNull约束依赖的前提条件, 条件成立等效于@NotNull，条件不成立时等效于没有此约束注解
      */
-    val support15: Boolean = false,
+    val depends: Depends,
     /**
      * 校验不通过时的提示，或其国际化key。
      * 每个约束定义中都包含有一个用于提示验证结果的消息模版, 并且在声明一个约束条件的时候,你可以通过这个约束中的message属性来重写默认的消息模版,
@@ -29,7 +35,7 @@ annotation class CnIdCardNo(
      * 然后将占位符和这个文件中定义的resource进行匹配,如果匹配不成功的话,那么它会继续匹配Hibernate Validator自带的位于
      * /org/hibernate/validator/ValidationMessages.properties的ResourceBundle, 依次类推,递归的匹配所有的占位符.
      */
-    val message: String = "{io.kudos.base.bean.validation.constraint.annotaions.CnIdCardNo.message}",
+    val message: String = "{io.kudos.base.bean.validation.constraint.annotations.NotNullOn.message}",
     /**
      * 该校验规则所从属的分组类，通过分组可以过滤校验规则或排序校验顺序。默认值必须是空数组。
      * 校验组能够让你在验证的时候选择应用哪些约束条件. 这样在某些情况下( 例如向导 ) 就可以对每一步进行校验的时候, 选取对应这步的那些约束条件进行验证了.
