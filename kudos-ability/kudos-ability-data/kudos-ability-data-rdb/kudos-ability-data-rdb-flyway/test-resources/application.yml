@@ -67,4 +67,4 @@ kudos:
       #fly数据源配置
       datasource-config:
         #demo：代表resource下db/{demo}/模块,对应的jdbc多数据源的数据源名
-        sys: ds1
+        module1: ds1

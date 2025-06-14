@@ -1,10 +1,11 @@
-soul:
+kudos:
   ability:
     flyway:
       #fly数据源配置
       datasource-config:
         #demo：代表resource下db/{demo}/模块,对应的jdbc多数据源的数据源名
         demo: master
+
 spring:
   flyway:
     # 启用Flyway功能

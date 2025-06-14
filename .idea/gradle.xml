@@ -42,6 +42,7 @@
             <option value="$PROJECT_DIR$/kudos-ability/kudos-ability-data/kudos-ability-data-memdb" />
             <option value="$PROJECT_DIR$/kudos-ability/kudos-ability-data/kudos-ability-data-memdb/kudos-ability-data-memdb-redis" />
             <option value="$PROJECT_DIR$/kudos-ability/kudos-ability-data/kudos-ability-data-rdb" />
+            <option value="$PROJECT_DIR$/kudos-ability/kudos-ability-data/kudos-ability-data-rdb/kudos-ability-data-rdb-flyway" />
             <option value="$PROJECT_DIR$/kudos-ability/kudos-ability-data/kudos-ability-data-rdb/kudos-ability-data-rdb-jdbc" />
             <option value="$PROJECT_DIR$/kudos-ability/kudos-ability-data/kudos-ability-data-rdb/kudos-ability-data-rdb-ktorm" />
             <option value="$PROJECT_DIR$/kudos-ability/kudos-ability-distributed" />
@@ -78,6 +79,9 @@
             <option value="$PROJECT_DIR$/kudos-ability/kudos-ability-web/kudos-ability-web-springmvc" />
             <option value="$PROJECT_DIR$/kudos-base" />
             <option value="$PROJECT_DIR$/kudos-context" />
+            <option value="$PROJECT_DIR$/kudos-ms" />
+            <option value="$PROJECT_DIR$/kudos-ms/kudos-ms-sys" />
+            <option value="$PROJECT_DIR$/kudos-ms/kudos-ms-sys/kudos-ms-sys-service" />
             <option value="$PROJECT_DIR$/kudos-test" />
             <option value="$PROJECT_DIR$/kudos-test/kudos-test-common" />
             <option value="$PROJECT_DIR$/kudos-test/kudos-test-container" />
