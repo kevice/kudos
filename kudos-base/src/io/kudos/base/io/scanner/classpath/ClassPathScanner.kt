@@ -99,6 +99,25 @@ object ClassPathScanner {
     }
 
     /**
+     * Gets the physical location urls for this logical path on the classpath.
+     *
+     * @param path The path on the classpath.
+     * @return The underlying physical URLs.
+     * @throws IOException when the lookup fails.
+     */
+    fun getLocationUrlsForPath(path: String): List<URL> {
+        val locationUrls: MutableList<URL> = ArrayList()
+        val urls = classLoader.getResources(path)
+        /*if (!urls.hasMoreElements()) {
+			throw new SystemException("Unable to determine URL for classpath location: " + path + " (ClassLoader: "
+					+ getClassLoader() + ")");
+		}*/while (urls.hasMoreElements()) {
+            locationUrls.add(urls.nextElement())
+        }
+        return locationUrls
+    }
+
+    /**
      * Converts this resource name to a fully qualified class name.
      *
      * @param resourceName The resource name.
@@ -134,25 +153,6 @@ object ClassPathScanner {
             }
         }
         return filterResourceNames(resourceNames, prefix, suffix)
-    }
-
-    /**
-     * Gets the physical location urls for this logical path on the classpath.
-     *
-     * @param path The path on the classpath.
-     * @return The underlying physical URLs.
-     * @throws IOException when the lookup fails.
-     */
-    private fun getLocationUrlsForPath(path: String): List<URL> {
-        val locationUrls: MutableList<URL> = ArrayList()
-        val urls = classLoader.getResources(path)
-        /*if (!urls.hasMoreElements()) {
-			throw new SystemException("Unable to determine URL for classpath location: " + path + " (ClassLoader: "
-					+ getClassLoader() + ")");
-		}*/while (urls.hasMoreElements()) {
-            locationUrls.add(urls.nextElement())
-        }
-        return locationUrls
     }
 
     /**

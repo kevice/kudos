@@ -6,7 +6,10 @@ import java.io.*
 import java.math.BigInteger
 import java.net.URI
 import java.nio.file.Files
+import java.util.jar.JarEntry
+import java.util.jar.JarOutputStream
 import java.util.zip.CRC32
+import java.util.zip.ZipEntry
 import kotlin.test.*
 
 
@@ -31,6 +34,80 @@ internal class FileKitTest {
         if (tempDir.exists()) {
             tempDir.deleteRecursively()
         }
+    }
+
+    private fun createTestJar(): File {
+        val tempDir = Files.createTempDirectory("testJar").toFile()
+        val jarFile = File.createTempFile("test-", ".jar")
+
+        // 创建目录结构和文件
+        val assetsDir = File(tempDir, "assets").apply { mkdir() }
+        File(assetsDir, "test1.txt").writeText("file1")
+        File(assetsDir, "test2.txt").writeText("file2")
+        val subDir = File(assetsDir, "subdir").apply { mkdir() }
+        File(subDir, "test3.txt").writeText("file3")
+
+        // 写入 JAR
+        JarOutputStream(jarFile.outputStream()).use { jarOut ->
+            fun addEntry(file: File, basePath: String) {
+                val entryName = basePath + file.name + if (file.isDirectory) "/" else ""
+                jarOut.putNextEntry(ZipEntry(entryName))
+                if (file.isFile) {
+                    file.inputStream().copyTo(jarOut)
+                }
+                jarOut.closeEntry()
+                if (file.isDirectory) {
+                    file.listFiles()?.forEach { child ->
+                        addEntry(child, entryName)
+                    }
+                }
+            }
+            tempDir.listFiles()?.forEach { addEntry(it, "") }
+        }
+
+        return jarFile
+    }
+
+    @Test
+    fun testListFilesAndDirsInJar_nonRecursive_noDirs() {
+        val jarFile = createTestJar()
+        val jarPath = "jar:file:${jarFile.absolutePath}!"
+        val result = FileKit.listFilesOrDirsInJar(jarPath, "assets", recursive = false, includeDirs = false)
+
+        val expected = listOf("assets/test1.txt", "assets/test2.txt")
+        assertEquals(expected.sorted(), result.sorted())
+    }
+
+    @Test
+    fun testListFilesOrDirsInJar_nonRecursive_withDirs() {
+        val jarFile = createTestJar()
+        val jarPath = "jar:file:${jarFile.absolutePath}!"
+        val result = FileKit.listFilesOrDirsInJar(jarPath, "assets", recursive = false, includeDirs = true)
+
+        val expected = listOf("assets/test1.txt", "assets/test2.txt", "assets/subdir/")
+        assertEquals(expected.sorted(), result.sorted())
+    }
+
+    @Test
+    fun testListFilesOrDirsInJar_recursive_noDirs() {
+        val jarFile = createTestJar()
+        val jarPath = "jar:file:${jarFile.absolutePath}!"
+        val result = FileKit.listFilesOrDirsInJar(jarPath, "assets", recursive = true, includeDirs = false)
+
+        val expected = listOf("assets/test1.txt", "assets/test2.txt", "assets/subdir/test3.txt")
+        assertEquals(expected.sorted(), result.sorted())
+    }
+
+    @Test
+    fun testListFilesOrDirsInJar_recursive_withDirs() {
+        val jarFile = createTestJar()
+        val jarPath = "jar:file:${jarFile.absolutePath}!"
+        val result = FileKit.listFilesOrDirsInJar(jarPath, "assets", recursive = true, includeDirs = true)
+
+        val expected = listOf(
+            "assets/subdir/", "assets/subdir/test3.txt", "assets/test1.txt", "assets/test2.txt"
+        )
+        assertEquals(expected.sorted(), result.sorted())
     }
 
     // ---------- zip 方法 ----------

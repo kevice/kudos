@@ -12,6 +12,7 @@ import org.apache.commons.io.filefilter.IOFileFilter
 import java.io.*
 import java.math.BigInteger
 import java.net.URL
+import java.util.jar.JarFile
 import java.util.zip.Checksum
 
 /**
@@ -31,6 +32,56 @@ object FileKit {
     const val PREFIX_TEMP_FILE: String = "FileKit_"
 
     private val log = LogFactory.getLog(this)
+
+    /**
+     * 列出 jar 包中指定目录下的资源名称（包括文件和目录）
+     *
+     * @param jarPath jar 包路径（如：jar:file:/path/to/xxx.jar!）
+     * @param dirInJar 要查询的 jar 包中的目录（如："assets"）
+     * @param recursive 是否递归所有子目录，false 时只查找一层
+     * @param includeDirs 是否包含目录名称（true：包括目录，false：仅返回文件）
+     * @return 资源（或目录）名称列表
+     */
+    fun listFilesOrDirsInJar(
+        jarPath: String,
+        dirInJar: String,
+        recursive: Boolean = false,
+        includeDirs: Boolean = true
+    ): List<String> {
+        val jarFilePath = jarPath.removePrefix("jar:file:").substringBefore("!")
+        val jarFile = JarFile(jarFilePath)
+        val result = mutableSetOf<String>()
+
+        val normalizedDir = dirInJar.removePrefix("/").trimEnd('/') + "/"
+
+        val entries = jarFile.entries()
+        while (entries.hasMoreElements()) {
+            val entry = entries.nextElement()
+            val name = entry.name
+
+            if (name == normalizedDir) continue
+            if (!name.startsWith(normalizedDir)) continue
+
+            val relative = name.removePrefix(normalizedDir)
+
+            if (!recursive && relative.contains("/")) {
+                // 只保留一级目录中的直接子目录或文件
+                val firstSegment = relative.substringBefore("/")
+                val fullPath = normalizedDir + firstSegment + "/"
+                if (includeDirs) result.add(fullPath)
+            } else {
+                // 递归或文件
+                if (entry.isDirectory && includeDirs) {
+                    result.add(name)
+                } else if (!entry.isDirectory) {
+                    result.add(name)
+                }
+            }
+        }
+
+        jarFile.close()
+        return result.toList().distinct().sorted()
+    }
 
     /**
      * 压缩单个文件成zip压缩包并加密
